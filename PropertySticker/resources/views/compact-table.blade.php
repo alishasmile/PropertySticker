@@ -1,23 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="{{URL::asset('img/favicon.ico')}}">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	
-	<title>Fresh Bootstrap Table by Creative Tim</title>
+@extends('head')
 
-	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    
-    <link href="{{URL::asset('css/bootstrap.css')}}" rel="stylesheet" />
-    
-    <link href="{{URL::asset('css/fresh-bootstrap-table.css')}}" rel="stylesheet" />
-     
-    <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-        
-</head>
+@section('title')
+
+  <title>PropertySticker</title>
+
+@endsection
+
+@section('body')
+
 <body>
 
 <div class="wrapper">
@@ -26,9 +16,6 @@
             <div class="col-md-8 col-md-offset-2">
                                 
                 <div class="fresh-table full-color-orange">
-                <!--    Available colors for the full background: full-color-blue, full-color-azure, full-color-green, full-color-red, full-color-orange                  
-                        Available colors only for the toolbar: toolbar-color-blue, toolbar-color-azure, toolbar-color-green, toolbar-color-red, toolbar-color-orange
-                -->
                 
                     <div class="toolbar">
                         <button id="alertBtn" class="btn btn-default">Alert</button>
@@ -206,20 +193,68 @@
     </div>
 </div>
 
-</body>
-    <script type="text/javascript" src="assets/js/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap-table.js"></script>
+<div class="fixed-plugin" style="top: 300px">
+    <div class="dropdown">
+        <a href="#" data-toggle="dropdown">
+        <i class="fa fa-cog fa-2x"> </i>
+        </a>
+        <ul class="dropdown-menu">
+            <li class="header-title">Adjustments</li>
+            <li class="adjustments-line">
+                <a href="javascript:void(0)" class="switch-trigger">
+                    <p>Full Background</p>
+                    <div class="switch"
+                        data-on-label="ON"
+                        data-off-label="OFF">
+                        <input type="checkbox" checked data-target="section-header" data-type="parallax"/>
+                    </div>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li class="adjustments-line">
+                <a href="javascript:void(0)" class="switch-trigger">
+                    <p>Colors</p>
+                    <div class="pull-right">
+                        <span class="badge filter badge-blue" data-color="blue"></span>
+                        <span class="badge filter badge-azure" data-color="azure"></span>
+                        <span class="badge filter badge-green" data-color="green"></span>
+                        <span class="badge filter badge-orange active" data-color="orange"></span>
+                        <span class="badge filter badge-red" data-color="red"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li class="header-title">Layouts</li>
+            <li class="active">
+                <a class="img-holder" href="compact-table.html">
+                    <img src="{{URL::asset('img/compact.jpg')}}">
+                    <h5>Compact Table</h5>
+                </a>
+            </li>
+            <li>
+                <a class="img-holder" href="full-screen-table.html">
+                    <img src="{{URL::asset('img/full.jpg')}}">
+                    <h5>Full Screen Table</h5>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 
+</body>
+
+    <script type="text/javascript" src="{{URL::asset('js/jquery-1.11.2.min.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('js/bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('js/bootstrap-table.js')}}"></script>
     <script type="text/javascript">
         var $table = $('#fresh-table'),
             $alertBtn = $('#alertBtn'),
             full_screen = false;
-            
+
         $().ready(function(){
             $table.bootstrapTable({
                 toolbar: ".toolbar",
-    
+
                 showRefresh: true,
                 search: true,
                 showToggle: true,
@@ -228,9 +263,9 @@
                 striped: true,
                 pageSize: 8,
                 pageList: [8,10,25,50,100],
-                
+
                 formatShowingRows: function(pageFrom, pageTo, totalRows){
-                    //do nothing here, we don't want to show the text "showing x of y from..." 
+                    //do nothing here, we don't want to show the text "showing x of y from..."
                 },
                 formatRecordsPerPage: function(pageNumber){
                     return pageNumber + " rows visible";
@@ -243,14 +278,14 @@
                     detailClose: 'fa fa-minus-circle'
                 }
             });
-            
-                        
-            
+
+
+
             $(window).resize(function () {
                 $table.bootstrapTable('resetView');
             });
-    
-            
+
+
             window.operateEvents = {
                 'click .like': function (e, value, row, index) {
                     alert('You click like icon, row: ' + JSON.stringify(row));
@@ -258,24 +293,24 @@
                 },
                 'click .edit': function (e, value, row, index) {
                     alert('You click edit icon, row: ' + JSON.stringify(row));
-                    console.log(value, row, index);    
+                    console.log(value, row, index);
                 },
                 'click .remove': function (e, value, row, index) {
                     $table.bootstrapTable('remove', {
                         field: 'id',
                         values: [row.id]
                     });
-            
+
                 }
             };
-            
+
             $alertBtn.click(function () {
                 alert("You pressed on Alert");
             });
-            
+
         });
-            
-    
+
+
         function operateFormatter(value, row, index) {
             return [
                 '<a rel="tooltip" title="Like" class="table-action like" href="javascript:void(0)" title="Like">',
@@ -289,7 +324,310 @@
                 '</a>'
             ].join('');
         }
-    
+
+        current_color = "orange";
+        full_color = true;
+
+        $().ready(function(){
+            $fresh_table = $('.fresh-table');
             
+            if($('.switch').length != 0){
+                 $('.switch')['bootstrapSwitch']();
+            }
+            
+            $('.fixed-plugin a').click(function(event){
+              // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                if($(this).hasClass('switch-trigger')){
+                    if(event.stopPropagation){
+                        event.stopPropagation();
+                    }
+                    else if(window.event){
+                       window.event.cancelBubble = true;
+                    }     
+                }                          
+            });
+            
+            $('.fixed-plugin .badge').click(function(){
+               
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+                 
+                var new_color = $(this).data('color');
+            
+                $fresh_table.fadeOut('fast', function(){
+                    if(full_color){
+                        $fresh_table.removeClass("full-color-" + current_color).addClass("full-color-" + new_color);
+                    } else {
+                        $fresh_table.removeClass("toolbar-color-" + current_color).addClass("toolbar-color-" + new_color);
+                    }  
+                    
+                    current_color = new_color;    
+                    $fresh_table.fadeIn('fast');     
+                });
+            }); 
+            
+            $('.switch input').change(function(){
+                $input = $(this);
+                target = $input.data('target');
+                type = $input.data('type');
+            
+                $fresh_table.fadeOut('fast', function(){
+                    
+                    if($input.is(':checked')){       
+                        $fresh_table.removeClass("toolbar-color-" + current_color).addClass("full-color-" + current_color);
+                        full_color = true;
+                    } else {
+                        $fresh_table.removeClass("full-color-" + current_color).addClass("toolbar-color-" + current_color);
+                        full_color = false;
+                    }    
+               
+                    $fresh_table.fadeIn('fast');     
+                });        
+            });
+        });
+
+
+        !function ($) {
+          "use strict";
+
+          $.fn['bootstrapSwitch'] = function (method) {
+            var methods = {
+              init: function () {
+                return this.each(function () {
+                    var $element = $(this)
+                      , $div
+                      , $switchLeft
+                      , $switchRight
+                      , $label
+                      , myClasses = ""
+                      , classes = $element.attr('class')
+                      , color
+                      , moving
+                      , onLabel = "ON"
+                      , offLabel = "OFF"
+                      , icon = false;
+
+                    $.each(['switch-mini', 'switch-small', 'switch-large'], function (i, el) {
+                      if (classes.indexOf(el) >= 0)
+                        myClasses = el;
+                    });
+
+                    $element.addClass('has-switch');
+
+                    if ($element.data('on') !== undefined)
+                      color = "switch-" + $element.data('on');
+
+                    if ($element.data('on-label') !== undefined)
+                      onLabel = $element.data('on-label');
+
+                    if ($element.data('off-label') !== undefined)
+                      offLabel = $element.data('off-label');
+
+                    if ($element.data('icon') !== undefined)
+                      icon = $element.data('icon');
+
+                    $switchLeft = $('<span>')
+                      .addClass("switch-left")
+                      .addClass(myClasses)
+                      .addClass(color)
+                      .html(onLabel);
+
+                    color = '';
+                    if ($element.data('off') !== undefined)
+                      color = "switch-" + $element.data('off');
+
+                    $switchRight = $('<span>')
+                      .addClass("switch-right")
+                      .addClass(myClasses)
+                      .addClass(color)
+                      .html(offLabel);
+
+                    $label = $('<label>')
+                      .html("&nbsp;")
+                      .addClass(myClasses)
+                      .attr('for', $element.find('input').attr('id'));
+
+                    if (icon) {
+                      $label.html('<i class="' + icon + '"></i>');
+                    }
+
+                    $div = $element.find(':checkbox').wrap($('<div>')).parent().data('animated', false);
+
+                    if ($element.data('animated') !== false)
+                      $div.addClass('switch-animate').data('animated', true);
+
+                    $div
+                      .append($switchLeft)
+                      .append($label)
+                      .append($switchRight);
+
+                    $element.find('>div').addClass(
+                      $element.find('input').is(':checked') ? 'switch-on' : 'switch-off'
+                    );
+
+                    if ($element.find('input').is(':disabled'))
+                      $(this).addClass('deactivate');
+
+                    var changeStatus = function ($this) {
+                      $this.siblings('label').trigger('mousedown').trigger('mouseup').trigger('click');
+                    };
+
+                    $element.on('keydown', function (e) {
+                      if (e.keyCode === 32) {
+                        e.stopImmediatePropagation();
+                        e.preventDefault();
+                        changeStatus($(e.target).find('span:first'));
+                      }
+                    });
+
+                    $switchLeft.on('click', function (e) {
+                      changeStatus($(this));
+                    });
+
+                    $switchRight.on('click', function (e) {
+                      changeStatus($(this));
+                    });
+
+                    $element.find('input').on('change', function (e) {
+                      var $this = $(this)
+                        , $element = $this.parent()
+                        , thisState = $this.is(':checked')
+                        , state = $element.is('.switch-off');
+
+                      e.preventDefault();
+
+                      $element.css('left', '');
+
+                      if (state === thisState) {
+
+                        if (thisState)
+                          $element.removeClass('switch-off').addClass('switch-on');
+                        else $element.removeClass('switch-on').addClass('switch-off');
+
+                        if ($element.data('animated') !== false)
+                          $element.addClass("switch-animate");
+
+                        $element.parent().trigger('switch-change', {'el': $this, 'value': thisState})
+                      }
+                    });
+
+                    $element.find('label').on('mousedown touchstart', function (e) {
+                      var $this = $(this);
+                      moving = false;
+
+                      e.preventDefault();
+                      e.stopImmediatePropagation();
+
+                      $this.closest('div').removeClass('switch-animate');
+
+                      if ($this.closest('.has-switch').is('.deactivate'))
+                        $this.unbind('click');
+                      else {
+                        $this.on('mousemove touchmove', function (e) {
+                          var $element = $(this).closest('.switch')
+                            , relativeX = (e.pageX || e.originalEvent.targetTouches[0].pageX) - $element.offset().left
+                            , percent = (relativeX / $element.width()) * 100
+                            , left = 25
+                            , right = 75;
+
+                          moving = true;
+
+                          if (percent < left)
+                            percent = left;
+                          else if (percent > right)
+                            percent = right;
+
+                          $element.find('>div').css('left', (percent - right) + "%")
+                        });
+
+                        $this.on('click touchend', function (e) {
+                          var $this = $(this)
+                            , $target = $(e.target)
+                            , $myCheckBox = $target.siblings('input');
+
+                          e.stopImmediatePropagation();
+                          e.preventDefault();
+
+                          $this.unbind('mouseleave');
+
+                          if (moving)
+                            $myCheckBox.prop('checked', !(parseInt($this.parent().css('left')) < -25));
+                          else $myCheckBox.prop("checked", !$myCheckBox.is(":checked"));
+
+                          moving = false;
+                          $myCheckBox.trigger('change');
+                        });
+
+                        $this.on('mouseleave', function (e) {
+                          var $this = $(this)
+                            , $myCheckBox = $this.siblings('input');
+
+                          e.preventDefault();
+                          e.stopImmediatePropagation();
+
+                          $this.unbind('mouseleave');
+                          $this.trigger('mouseup');
+
+                          $myCheckBox.prop('checked', !(parseInt($this.parent().css('left')) < -25)).trigger('change');
+                        });
+
+                        $this.on('mouseup', function (e) {
+                          e.stopImmediatePropagation();
+                          e.preventDefault();
+
+                          $(this).unbind('mousemove');
+                        });
+                      }
+                    });
+                  }
+                );
+              },
+              toggleActivation: function () {
+                $(this).toggleClass('deactivate');
+              },
+              isActive: function () {
+                return !$(this).hasClass('deactivate');
+              },
+              setActive: function (active) {
+                if (active)
+                  $(this).removeClass('deactivate');
+                else $(this).addClass('deactivate');
+              },
+              toggleState: function (skipOnChange) {
+                var $input = $(this).find('input:checkbox');
+                $input.prop('checked', !$input.is(':checked')).trigger('change', skipOnChange);
+              },
+              setState: function (value, skipOnChange) {
+                $(this).find('input:checkbox').prop('checked', value).trigger('change', skipOnChange);
+              },
+              status: function () {
+                return $(this).find('input:checkbox').is(':checked');
+              },
+              destroy: function () {
+                var $div = $(this).find('div')
+                  , $checkbox;
+
+                $div.find(':not(input:checkbox)').remove();
+
+                $checkbox = $div.children();
+                $checkbox.unwrap().unwrap();
+
+                $checkbox.unbind('change');
+
+                return $checkbox;
+              }
+            };
+
+            if (methods[method])
+              return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+            else if (typeof method === 'object' || !method)
+              return methods.init.apply(this, arguments);
+            else
+              $.error('Method ' + method + ' does not exist!');
+          };
+        }(jQuery);
+
     </script>
+
 </html>
+@endsection
