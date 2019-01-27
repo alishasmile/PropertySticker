@@ -19,3 +19,7 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('compact-table');
 });
+
+Route::get('/test','DataController@createData');
+
+Route::get('/test2','DataController@test');
