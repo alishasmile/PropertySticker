@@ -70,7 +70,7 @@ class DataController extends Controller
 					$datum -> id = $index++;
 					$datum -> quantity = 1;
 					$datum -> price = $d["總價"];
-					$datum -> comfirmed = false;
+					$datum -> confirmed = false;
 
 					$datum->save();
 				} 

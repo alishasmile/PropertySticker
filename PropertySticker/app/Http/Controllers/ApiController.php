@@ -31,7 +31,7 @@ class ApiController extends Controller
 	    	$geterror_property = \App\datum::where('property_id', $property_id)->exists();
 	        if($geterror_property == true){
 	        	$getname = \App\datum::where('property_id', $property_id)->first()->name;
-	        	$getconfirmed = \App\datum::where('property_id', $property_id)->first()->comfirmed;
+	        	$getconfirmed = \App\datum::where('property_id', $property_id)->first()->confirmed;
 	        	return response()->json([
 		        	'status' => 'success',
 				    'name' => $getname,//財產名稱
@@ -57,7 +57,7 @@ class ApiController extends Controller
         //$token = $request->input('token');
 
         $property= \App\datum::where('property_id', $property_id)->first();
-        $getcomfirmed = $property->confirmed;
+        $getconfirmed = $property->confirmed;
         
         $Note = new \App\Note;
         //error 1.前後端不同(後端貼過還請求貼) 2.note放入資料出現錯誤(沒放成功)

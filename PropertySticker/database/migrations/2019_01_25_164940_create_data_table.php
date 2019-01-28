@@ -26,7 +26,7 @@ class CreateDataTable extends Migration
             $table->integer('price');//總價
             $table->text('assignee');//保管者
             $table->text('place');//房間
-            $table->boolean('comfirmed');//是否貼過財產貼
+            $table->boolean('confirmed');//是否貼過財產貼
             $table->timestamps();
         });
     }

@@ -26,7 +26,7 @@ class DataTableSeeder extends Seeder
         		'price' => $number,
         		'assignee' => '保管者',
         		'place' => '房間',
-        		'comfirmed' => 1,
+        		'confirmed' => 1,
         	]);
         }
     }
