@@ -16,12 +16,14 @@ class ApiController extends Controller
         //$token = $request->input('token');
         
         //error: 1.user wrong 2.no this property 
+
 /*
         $geterror_user = \App\datum::where('token', $token)->exists();
         if($geterror_user == false){
         	return response()->json([
 	        	'status' => 'failed',
 			    'error type' => 1,
+				'error message' => 'user wrong',
 			]);
 	    }
 	    else{
@@ -40,6 +42,7 @@ class ApiController extends Controller
 	        	return response()->json([
 		        	'status' => 'failed',
 				    'error type' => 2,
+				    'error message' => 'no this property',
 				]);
 	        }
 //	    }
@@ -53,7 +56,8 @@ class ApiController extends Controller
         //$note = $request->input('note');
         //$token = $request->input('token');
 
-        $getcomfirmed = \App\datum::where('property_id', $property_id)->first()->comfirmed;
+        $property= \App\datum::where('property_id', $property_id)->first();
+        $getcomfirmed = $property->comfirmed;
         
         $Note = new \App\Note;
         //error 1.前後端不同(後端貼過還請求貼) 2.note放入資料出現錯誤(沒放成功)
@@ -62,22 +66,28 @@ class ApiController extends Controller
         	return response()->json([
 	        	'status' => 'failed',
 			    'error type' => 1,
+			    'error message' => 'Property has been sticked.',
 			]);
         }
         else{
         	$Note -> property_id = $property_id;
         	//$Note -> content = $note;
         	//$Note -> user = $token;
+        	$property->comfirmed = 1;
 
         	/*
 	        if(){//error 2.note放入資料出現錯誤(沒放成功)
 	        	return response()->json([
 		        	'status' => 'failed',
 				    'error type' => 2,
+			    	'error message' => 'Note failed',
 				]);
 	        }
 	        else{
 	        */
+
+        		$Note->save();
+        		$property->save();
         	
 	        	return response()->json([
 		        	'status' => 'success',
