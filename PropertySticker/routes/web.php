@@ -20,10 +20,14 @@ Route::get('/', function () {
     return view('compact-table');
 });
 
-Route::get('/test','DataController@createData');
+Route::get('/404', function () {
+    return view('404');
+});
 
-Route::get('/test2','DataController@test');
+Route::get('/createData','DataController@createData');
 
-Route::post('/api/get_property', 'ApiController@reponse_property');
+//Route::get('/test2','DataController@test');
 
-Route::get('/api/get_check', 'ApiController@reponse_check');
+Route::post('/api/get_property', 'ApiController@reponse_property');//API
+
+Route::post('/api/get_check', 'ApiController@reponse_check');//API2

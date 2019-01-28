@@ -3,39 +3,89 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+//use Illuminate\Http\Response;
+//use Symfony\Component\HttpFoundation\Response;
 
 class ApiController extends Controller
 {
     //
 
-    public function reponse_property(Request $request)
+    public function reponse_property(Request $request)//API
     {
         $property_id = $request->input('property_id');
         //$token = $request->input('token');
-        //
-        $getname = \App\datum::where('property_id', $property_id)->first()->name;
-        //dd($getname->name);
-        return response()->json([
-        	//'status' => 'success',
-		    'name' => $getname,
-
-		]);
+        
+        //error: 1.user wrong 2.no this property 
+/*
+        $geterror_user = \App\datum::where('token', $token)->exists();
+        if($geterror_user == false){
+        	return response()->json([
+	        	'status' => 'failed',
+			    'error type' => 1,
+			]);
+	    }
+	    else{
+*/	    
+	    	$geterror_property = \App\datum::where('property_id', $property_id)->exists();
+	        if($geterror_property == true){
+	        	$getname = \App\datum::where('property_id', $property_id)->first()->name;
+	        	$getcomfirmed = \App\datum::where('property_id', $property_id)->first()->comfirmed;
+	        	return response()->json([
+		        	'status' => 'success',
+				    'name' => $getname,//財產名稱
+				    'comfirmed' => $getcomfirmed,//貼過沒
+				]);
+	        }
+	        else{
+	        	return response()->json([
+		        	'status' => 'failed',
+				    'error type' => 2,
+				]);
+	        }
+//	    }
+        
     }
 
 
-    public function reponse_check(Request $request)
+    public function reponse_check(Request $request)//API2
     {
         $property_id = $request->input('property_id');
+        //$note = $request->input('note');
         //$token = $request->input('token');
-        //
-        $getcomfirmed = \App\datum::where('property_id', $property_id)->first()->comfirmed;
-        //dd($getname->name);
-        return response()->json([
-        	//'status' => 'success',
-		    'comfirmed' => $getcomfirmed,
 
-		]);
+        $getcomfirmed = \App\datum::where('property_id', $property_id)->first()->comfirmed;
+        
+        $Note = new \App\Note;
+        //error 1.前後端不同(後端貼過還請求貼) 2.note放入資料出現錯誤(沒放成功)
+
+        if($getcomfirmed == 1){//貼過 error 1.前後端不同(後端貼過還請求貼) 
+        	return response()->json([
+	        	'status' => 'failed',
+			    'error type' => 1,
+			]);
+        }
+        else{
+        	$Note -> property_id = $property_id;
+        	//$Note -> content = $note;
+        	//$Note -> user = $token;
+
+        	/*
+	        if(){//error 2.note放入資料出現錯誤(沒放成功)
+	        	return response()->json([
+		        	'status' => 'failed',
+				    'error type' => 2,
+				]);
+	        }
+	        else{
+	        */
+        	
+	        	return response()->json([
+		        	'status' => 'success',
+				]);
+
+			//}
+        }
+        
     }
 
 }
