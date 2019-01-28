@@ -24,10 +24,18 @@ Route::get('/404', function () {
     return view('404');
 });
 
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::get('/firstLogin', function () {
+    return view('firstLogin');
+});
+
 Route::get('/createData','DataController@createData');
 
 //Route::get('/test2','DataController@test');
 
 Route::post('/api/get_property', 'ApiController@reponse_property');//API
 
-Route::post('/api/get_check', 'ApiController@reponse_check');//API2
+Route::post('/api/stick', 'ApiController@reponse_check');//API2

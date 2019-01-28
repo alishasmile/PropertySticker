@@ -10,6 +10,12 @@
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 	    
 	    <link href="{{URL::asset('css/bootstrap.css')}}" rel="stylesheet" />
+
+	    <link href="{{URL::asset('css/style.css')}}" rel="stylesheet" />
+
+	    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 	    
 	    <link href="{{URL::asset('css/fresh-bootstrap-table.css')}}" rel="stylesheet" />
 	     

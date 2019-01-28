@@ -71,7 +71,7 @@ class ApiController extends Controller
         }
         else{
         	$Note -> property_id = $property_id;
-        	//$Note -> content = $note;
+        	$Note -> content = $note;
         	//$Note -> user = $token;
         	$property->confirmed = 1;
 
