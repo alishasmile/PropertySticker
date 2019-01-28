@@ -31,11 +31,11 @@ class ApiController extends Controller
 	    	$geterror_property = \App\datum::where('property_id', $property_id)->exists();
 	        if($geterror_property == true){
 	        	$getname = \App\datum::where('property_id', $property_id)->first()->name;
-	        	$getcomfirmed = \App\datum::where('property_id', $property_id)->first()->comfirmed;
+	        	$getconfirmed = \App\datum::where('property_id', $property_id)->first()->comfirmed;
 	        	return response()->json([
 		        	'status' => 'success',
 				    'name' => $getname,//財產名稱
-				    'comfirmed' => $getcomfirmed,//貼過沒
+				    'confirmed' => $getconfirmed,//貼過沒
 				]);
 	        }
 	        else{
@@ -57,12 +57,12 @@ class ApiController extends Controller
         //$token = $request->input('token');
 
         $property= \App\datum::where('property_id', $property_id)->first();
-        $getcomfirmed = $property->comfirmed;
+        $getcomfirmed = $property->confirmed;
         
         $Note = new \App\Note;
         //error 1.前後端不同(後端貼過還請求貼) 2.note放入資料出現錯誤(沒放成功)
 
-        if($getcomfirmed == 1){//貼過 error 1.前後端不同(後端貼過還請求貼) 
+        if($getconfirmed == 1){//貼過 error 1.前後端不同(後端貼過還請求貼) 
         	return response()->json([
 	        	'status' => 'failed',
 			    'error type' => 1,
@@ -73,7 +73,7 @@ class ApiController extends Controller
         	$Note -> property_id = $property_id;
         	//$Note -> content = $note;
         	//$Note -> user = $token;
-        	$property->comfirmed = 1;
+        	$property->confirmed = 1;
 
         	/*
 	        if(){//error 2.note放入資料出現錯誤(沒放成功)
