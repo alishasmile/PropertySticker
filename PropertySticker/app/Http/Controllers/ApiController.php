@@ -32,37 +32,39 @@ class ApiController extends Controller
 
         //$token = $request->input('token');
         
-        //error: 1.user wrong 2.no this property 
+        //error: 1.user wrong 2.no this property(contains barcode type error)
 
-/*
+//type 1
         $geterror_user = \App\datum::where('token', $token)->exists();
-        if($geterror_user == false){
-        	return response()->json([
-	        	'status' => 'failed',
-			    'error type' => 1,
-				'error message' => 'user wrong',
-			]);
+        if($geterror_user == true){
+
+            $geterror_property = \App\datum::where('property_id', $property_id)->exists();
+            if($geterror_property == true){
+                $getname = \App\datum::where('property_id', $property_id)->first()->name;
+                $getconfirmed = \App\datum::where('property_id', $property_id)->first()->confirmed;
+                return response()->json([
+                    'status' => 'success',
+                    'name' => $getname,//財產名稱
+                    'confirmed' => $getconfirmed,//貼過沒
+                ]);
+            }
+            else{
+                return response()->json([
+                    'status' => 'failed',
+                    'error type' => 2,
+                    'error message' => 'no this property',
+                ]);
+            }
 	    }
-	    else{
-*/	    
-	    	$geterror_property = \App\datum::where('property_id', $property_id)->exists();
-	        if($geterror_property == true){
-	        	$getname = \App\datum::where('property_id', $property_id)->first()->name;
-	        	$getconfirmed = \App\datum::where('property_id', $property_id)->first()->confirmed;
-	        	return response()->json([
-		        	'status' => 'success',
-				    'name' => $getname,//財產名稱
-				    'confirmed' => $getconfirmed,//貼過沒
-				]);
-	        }
-	        else{
-	        	return response()->json([
-		        	'status' => 'failed',
-				    'error type' => 2,
-				    'error message' => 'no this property',
-				]);
-	        }
-//	    }
+	    else{	    
+            
+            return response()->json([
+                'status' => 'failed',
+                'error type' => 1,
+                'error message' => 'user wrong',
+            ]);
+
+	    }
         
     }
 
