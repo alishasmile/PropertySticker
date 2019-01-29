@@ -32,6 +32,6 @@ Route::get('/createData','DataController@createData');
 
 //Route::get('/test','ApiController@test');
 
-Route::post('/api/get_property', 'ApiController@reponse_property');//API
+Route::get('/api/get_property', 'ApiController@reponse_property');//API
 
 Route::post('/api/stick', 'ApiController@reponse_check');//API2

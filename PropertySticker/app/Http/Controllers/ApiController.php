@@ -25,49 +25,64 @@ class ApiController extends Controller
     }
 	*/
 
+///////////////////////////////////////////////////////////////
+
+//type 1
     public function reponse_property(Request $request)//API
     {
 
-        $property_id = $this->convert_property_id($request->input('property_id'));
 
-        //$token = $request->input('token');
+        //error: 1.user wrong 2.no this property(contains format error)
+
+        $result = array();
         
-        //error: 1.user wrong 2.no this property(contains barcode type error)
-
-//type 1
+/*
+        $token = $request->input('token');
         $geterror_user = \App\datum::where('token', $token)->exists();
-        if($geterror_user == true){
+        if($geterror_user == false){
+            $result['status'] = 'failed';
+            $result['error type'] = 1;
+            $result['error message'] = 'user wrong';
+        }
+        else{
+*/
+            $property_id_input = $request->input('property_id');
 
-            $geterror_property = \App\datum::where('property_id', $property_id)->exists();
-            if($geterror_property == true){
-                $getname = \App\datum::where('property_id', $property_id)->first()->name;
-                $getconfirmed = \App\datum::where('property_id', $property_id)->first()->confirmed;
-                return response()->json([
-                    'status' => 'success',
-                    'name' => $getname,//財產名稱
-                    'confirmed' => $getconfirmed,//貼過沒
-                ]);
+            $no_property = 1;
+
+            if(substr_count($property_id_input, '-') == 2){//two dash?
+
+                $property_id = $this->convert_property_id($property_id_input);
+                $geterror_property = \App\datum::where('property_id', $property_id)->exists();
+                //$geterror_property is format correct but no property
+                if($geterror_property){ $no_property = 0; }
+
+            }
+
+
+            if($no_property){//$no_property == 1 means format error or format correct but no property
+
+                $result['status'] = 'failed';
+                $result['error type'] = 2;
+                $result['error message'] = 'no this property';
+                
             }
             else{
-                return response()->json([
-                    'status' => 'failed',
-                    'error type' => 2,
-                    'error message' => 'no this property',
-                ]);
+                $getname = \App\datum::where('property_id', $property_id)->first()->name;
+                $getconfirmed = \App\datum::where('property_id', $property_id)->first()->confirmed;
+                
+                $result['status'] = 'success';
+                $result['name'] = $getname;//財產名稱
+                $result['confirmed'] = $getconfirmed;//貼過沒
             }
-	    }
-	    else{	    
-            
-            return response()->json([
-                'status' => 'failed',
-                'error type' => 1,
-                'error message' => 'user wrong',
-            ]);
+//        }
 
-	    }
+        return response()->json($result);
         
     }
 
+
+///////////////////////////////////////////////////////////////
 
     public function reponse_check(Request $request)//API2
     {
