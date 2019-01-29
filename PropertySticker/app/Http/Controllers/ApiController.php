@@ -80,8 +80,51 @@ class ApiController extends Controller
         return response()->json($result);
         
     }
+///////////////////////////////////////////////////////////////
+/*
+            
+    public function reponse_check(Request $request)//API2
+    {
+        $property_id = $this->convert_property_id($request->input('property_id'));
+        
+        //$note = $request->input('note');
+        //$token = $request->input('token');
+
+        $property= \App\datum::where('property_id', $property_id)->first();
+        $getconfirmed = $property->confirmed;
+        
+        $Note = new \App\Note;
+        //error 1.前後端不同(後端貼過還請求貼) 
+        //ignore now 2.note放入資料出現錯誤(沒放成功)
+
+        if($getconfirmed == 1){//貼過 error 1.前後端不同(後端貼過還請求貼) 
+            return response()->json([
+                'status' => 'failed',
+                'error type' => 1,
+                'error message' => 'Property has been sticked.',
+            ]);
+        }
+        else{
+            $Note -> property_id = $property_id;
+            $Note -> content = $note;
+            //$Note -> user = $token;
+            $property->confirmed = 1;
 
 
+                $Note->save();
+                $property->save();
+            
+                $result['status'] = 'success';
+
+            //}
+        }
+
+        return response()->json($result);
+        
+    }
+
+
+*/
 ///////////////////////////////////////////////////////////////
 
     public function reponse_check(Request $request)//API2
@@ -95,7 +138,8 @@ class ApiController extends Controller
         $getconfirmed = $property->confirmed;
         
         $Note = new \App\Note;
-        //error 1.前後端不同(後端貼過還請求貼) 2.note放入資料出現錯誤(沒放成功)
+        //error 1.前後端不同(後端貼過還請求貼) 
+        //ignore now 2.note放入資料出現錯誤(沒放成功)
 
         if($getconfirmed == 1){//貼過 error 1.前後端不同(後端貼過還請求貼) 
         	return response()->json([
@@ -110,7 +154,7 @@ class ApiController extends Controller
         	//$Note -> user = $token;
         	$property->confirmed = 1;
 
-        	/*
+        	/*//ignore now
 	        if(){//error 2.note放入資料出現錯誤(沒放成功)
 	        	return response()->json([
 		        	'status' => 'failed',
