@@ -81,52 +81,96 @@ class ApiController extends Controller
         
     }
 ///////////////////////////////////////////////////////////////
-/*
+
             
     public function reponse_check(Request $request)//API2
     {
-        $property_id = $this->convert_property_id($request->input('property_id'));
-        
-        //$note = $request->input('note');
-        //$token = $request->input('token');
+        $result = array();
 
-        $property= \App\datum::where('property_id', $property_id)->first();
-        $getconfirmed = $property->confirmed;
-        
-        $Note = new \App\Note;
         //error 1.前後端不同(後端貼過還請求貼) 
         //ignore now 2.note放入資料出現錯誤(沒放成功)
 
-        if($getconfirmed == 1){//貼過 error 1.前後端不同(後端貼過還請求貼) 
-            return response()->json([
-                'status' => 'failed',
-                'error type' => 1,
-                'error message' => 'Property has been sticked.',
-            ]);
+/*
+        
+        $token = $request->input('token');
+        $geterror_user = \App\datum::where('token', $token)->exists();
+        if($geterror_user == false){
+            $result['status'] = 'failed';
+            $result['error type'] = 1;
+            $result['error message'] = 'user wrong';
         }
         else{
-            $Note -> property_id = $property_id;
-            $Note -> content = $note;
-            //$Note -> user = $token;
-            $property->confirmed = 1;
+*/
+            $property_id_input = $request->input('property_id');
+            $no_property = 1;
+
+            if(substr_count($property_id_input, '-') == 2){//two dash?
+
+                $property_id = $this->convert_property_id($property_id_input);
+                $geterror_property = \App\datum::where('property_id', $property_id)->exists();
+                //$geterror_property is format correct but no property
+                if($geterror_property){ $no_property = 0; }
+
+            }
 
 
-                $Note->save();
-                $property->save();
+            if($no_property){//$no_property == 1 means format error or format correct but no property
+
+                $result['status'] = 'failed';
+                $result['error type'] = 2;
+                $result['error message'] = 'no this property';
+                
+            }
+            else{
+                $property_id = $this->convert_property_id($property_id_input);
             
-                $result['status'] = 'success';
 
-            //}
-        }
+                $property= \App\datum::where('property_id', $property_id)->first();
+                $getconfirmed = $property->confirmed;
+                
+                
+                if($getconfirmed == 1){//貼過 error 1.前後端不同(後端貼過還請求貼) 
+                    $result['status'] = 'failed';
+                    $result['error type'] = 1;
+                    $result['error message'] = 'Property has been sticked.';
+                }
+                else{
+                    $Note = new \App\Note;
+                    $note = $request->input('note');
+                    $Note -> property_id = $property_id;
+                    $Note -> content = $note;
+                    //$Note -> user = $token;
+                    $property->confirmed = 1;
+                    /*//ignore now
+                    if(){//error 2.note放入資料出現錯誤(沒放成功)
+                        $result['status'] = 'failed';
+                        $result['error type'] = 2;
+                        $result['error message'] = 'Note failed';
+                    }
+                    else{
+                    */
+
+                        $Note->save();
+                        $property->save();
+                    
+                        $result['status'] = 'success';
+
+                    //}
+
+                }
+            }
+
+            
+//        }
 
         return response()->json($result);
         
     }
 
 
-*/
-///////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////
+/*
     public function reponse_check(Request $request)//API2
     {
         $property_id = $this->convert_property_id($request->input('property_id'));
@@ -154,7 +198,7 @@ class ApiController extends Controller
         	//$Note -> user = $token;
         	$property->confirmed = 1;
 
-        	/*//ignore now
+        	//ignore now
 	        if(){//error 2.note放入資料出現錯誤(沒放成功)
 	        	return response()->json([
 		        	'status' => 'failed',
@@ -163,7 +207,7 @@ class ApiController extends Controller
 				]);
 	        }
 	        else{
-	        */
+	        
 
         		$Note->save();
         		$property->save();
@@ -176,5 +220,6 @@ class ApiController extends Controller
         }
         
     }
+    */
 
 }
