@@ -9,10 +9,27 @@ use Illuminate\Http\Request;
 class ApiController extends Controller
 {
     //
+    public function convert_property_id($property_id_input){
+
+        $pieces = explode("-", $property_id_input);
+        $p2 = (string)((int)$pieces[2]);
+
+        $property_id = $pieces[0].'-'.$pieces[1].'-'.$p2;
+
+        return $property_id;
+    }
+
+    /*
+    public function test(){
+    	return $this->convert_property_id('103-3-0023');
+    }
+	*/
 
     public function reponse_property(Request $request)//API
     {
-        $property_id = $request->input('property_id');
+
+        $property_id = $this->convert_property_id($request->input('property_id'));
+
         //$token = $request->input('token');
         
         //error: 1.user wrong 2.no this property 
@@ -52,7 +69,8 @@ class ApiController extends Controller
 
     public function reponse_check(Request $request)//API2
     {
-        $property_id = $request->input('property_id');
+        $property_id = $this->convert_property_id($request->input('property_id'));
+        
         //$note = $request->input('note');
         //$token = $request->input('token');
 

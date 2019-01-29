@@ -28,13 +28,9 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/firstLogin', function () {
-    return view('firstLogin');
-});
-
 Route::get('/createData','DataController@createData');
 
-//Route::get('/test2','DataController@test');
+//Route::get('/test','ApiController@test');
 
 Route::post('/api/get_property', 'ApiController@reponse_property');//API
 

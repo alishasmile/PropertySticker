@@ -22,23 +22,6 @@ class DataController extends Controller
 
 				$dd = $d["財產編號"];
 				$pieces = explode("-", $dd);
-				//
-				$j = 0;
-				$sum = 0;
-				while($pieces[2][$j] == '0'){
-					$sum++;
-					$j++;
-				}
-
-				//dd($sum);
-
-				$zero = '';
-
-				for($k = 0 ; $k < $sum ; $k++){
-					$zero = $zero.'0';
-				}
-
-				//dd($zero);
 
 				for($i = 0 ; $i < $d["數量"] ; $i++) {
 
@@ -61,7 +44,7 @@ class DataController extends Controller
 					else { $datum -> place = $d["房間"]; }
 
 					if($d["財產編號"] == null) { $datum -> property_id = 'null'; }
-					else { $datum -> property_id = $pieces[0].'-'.$pieces[1].'-'.$zero.$property_id_third; }
+					else { $datum -> property_id = $pieces[0].'-'.$pieces[1].'-'.$property_id_third; }
 
 					if($d["購買日期"] == null) { $datum -> purchase_date = 'null'; }
 					else { $datum -> purchase_date = $d["購買日期"]; };
