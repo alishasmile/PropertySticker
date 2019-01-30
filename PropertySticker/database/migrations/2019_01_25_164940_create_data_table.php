@@ -27,6 +27,7 @@ class CreateDataTable extends Migration
             $table->text('assignee');//保管者
             $table->text('place');//房間
             $table->boolean('confirmed');//是否貼過財產貼
+            $table->text('Stick_user');//誰貼的
             $table->timestamps();
         });
     }

@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use Illuminate\Http\Response;
-//use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Hash;
 
 class ApiController extends Controller
 {
@@ -25,6 +24,23 @@ class ApiController extends Controller
     }
 	*/
 
+    public function search_user($token){
+        
+        $b = 1;
+
+        $getusers = \App\Member::all();
+        foreach ($getusers as $user) {
+            if (Hash::check($token, $user->token)) {
+                $b = 0;
+                return $user->user;
+            }
+        }
+
+        if($b){ 
+            return 'NULL';
+        }
+    }
+
 ///////////////////////////////////////////////////////////////
 
 //type 1
@@ -36,16 +52,17 @@ class ApiController extends Controller
 
         $result = array();
         
-/*
         $token = $request->input('token');
-        $geterror_user = \App\datum::where('token', $token)->exists();
-        if($geterror_user == false){
+
+        $finduser = $this->search_user($token);
+        
+        if($finduser == 'NULL'){
             $result['status'] = 'failed';
             $result['error type'] = 1;
             $result['error message'] = 'user wrong';
         }
         else{
-*/
+
             $property_id_input = $request->input('property_id');
 
             $no_property = 1;
@@ -75,7 +92,7 @@ class ApiController extends Controller
                 $result['name'] = $getname;//財產名稱
                 $result['confirmed'] = $getconfirmed;//貼過沒
             }
-//        }
+        }
 
         return response()->json($result);
         
@@ -90,17 +107,18 @@ class ApiController extends Controller
         //error 1.前後端不同(後端貼過還請求貼) 
         //ignore now 2.note放入資料出現錯誤(沒放成功)
 
-/*
+
         
         $token = $request->input('token');
-        $geterror_user = \App\datum::where('token', $token)->exists();
-        if($geterror_user == false){
+        $finduser = $this->search_user($token);
+
+        if($finduser == 'NULL'){
             $result['status'] = 'failed';
             $result['error type'] = 1;
             $result['error message'] = 'user wrong';
         }
         else{
-*/
+
             $property_id_input = $request->input('property_id');
             $no_property = 1;
 
@@ -139,8 +157,9 @@ class ApiController extends Controller
                     $note = $request->input('note');
                     $Note -> property_id = $property_id;
                     $Note -> content = $note;
-                    //$Note -> user = $token;
+                    $Note -> user = $finduser;
                     $property->confirmed = 1;
+                    $property->Stick_user = $finduser;
                     /*//ignore now
                     if(){//error 2.note放入資料出現錯誤(沒放成功)
                         $result['status'] = 'failed';
@@ -161,7 +180,7 @@ class ApiController extends Controller
             }
 
             
-//        }
+        }
 
         return response()->json($result);
         
@@ -170,56 +189,6 @@ class ApiController extends Controller
 
 
 ///////////////////////////////////////////////////////////////
-/*
-    public function reponse_check(Request $request)//API2
-    {
-        $property_id = $this->convert_property_id($request->input('property_id'));
-        
-        //$note = $request->input('note');
-        //$token = $request->input('token');
 
-        $property= \App\datum::where('property_id', $property_id)->first();
-        $getconfirmed = $property->confirmed;
-        
-        $Note = new \App\Note;
-        //error 1.前後端不同(後端貼過還請求貼) 
-        //ignore now 2.note放入資料出現錯誤(沒放成功)
-
-        if($getconfirmed == 1){//貼過 error 1.前後端不同(後端貼過還請求貼) 
-        	return response()->json([
-	        	'status' => 'failed',
-			    'error type' => 1,
-			    'error message' => 'Property has been sticked.',
-			]);
-        }
-        else{
-        	$Note -> property_id = $property_id;
-        	$Note -> content = $note;
-        	//$Note -> user = $token;
-        	$property->confirmed = 1;
-
-        	//ignore now
-	        if(){//error 2.note放入資料出現錯誤(沒放成功)
-	        	return response()->json([
-		        	'status' => 'failed',
-				    'error type' => 2,
-			    	'error message' => 'Note failed',
-				]);
-	        }
-	        else{
-	        
-
-        		$Note->save();
-        		$property->save();
-        	
-	        	return response()->json([
-		        	'status' => 'success',
-				]);
-
-			//}
-        }
-        
-    }
-    */
 
 }

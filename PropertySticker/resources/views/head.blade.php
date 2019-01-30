@@ -23,6 +23,15 @@
 	    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 
+	    <script type="text/javascript">
+    		google.load("jquery", "1.2.3");
+			google.load("jqueryui", "1.5.2");
+			google.load("prototype", "1.6");
+			google.load("scriptaculous", "1.8.1");
+			google.load("mootools", "1.11");
+			google.load("dojo", "1.1.1");
+	    </script>
+
 	        
 		@yield('css')
 	  	@yield('AddStyle')
