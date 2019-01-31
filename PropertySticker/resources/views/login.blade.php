@@ -8,43 +8,6 @@
 
 @section('body')
 
-<script type="text/javascript">
-
-	function sendLoginInformation(){
-	  $.ajax({
-	    url: '{{URL::asset('/api/token_check')}}',
-	    type: 'POST',
-	    headers: {
-          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        },
-	    data: {
-	      token: $('#login_pw').val()
-	    },
-	    error: function(xhr) {
-	      alert('Ajax request 發生錯誤');
-	    },
-	    success: function(response) {
-	      alert(response['status']);
-	    }
-	  });
-	}
-
-	
-		  
-	$(document).ready(function(){
-		$('.pass_show').append('<span class="ptxt">Show</span>');  
-	});
-	  
-
-	$(document).on('click','.pass_show .ptxt', function(){ 
-
-		$(this).text($(this).text() == "Show" ? "Hide" : "Show"); 
-
-		$(this).prev().attr('type', function(index, attr){return attr == 'password' ? 'text' : 'password'; }); 
-
-	});  
-</script>
-
 <body>
 	<div class="login-wrap" style="margin-top: 80px;">
 		<div class="login-html">
@@ -95,7 +58,40 @@
 		</div>
 	</div>
 
-	
+	<script type="text/javascript">
+
+		function sendLoginInformation(){
+		  $.ajax({
+		    url: '{{URL::asset('/api/token_check')}}',
+		    type: 'POST',
+		    headers: {
+	          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+	        },
+		    data: {
+		      token: $('#login_pw').val()
+		    },
+		    error: function(xhr) {
+		      alert('Ajax request 發生錯誤');
+		    },
+		    success: function(response) {
+		      alert(response['status']);
+		    }
+		  });
+		}
+
+		$(document).ready(function(){
+			$('.pass_show').append('<span class="ptxt">Show</span>');  
+		});
+		  
+
+		$(document).on('click','.pass_show .ptxt', function(){ 
+
+			$(this).text($(this).text() == "Show" ? "Hide" : "Show"); 
+
+			$(this).prev().attr('type', function(index, attr){return attr == 'password' ? 'text' : 'password'; }); 
+
+		});  
+	</script>
 
 </body>
 

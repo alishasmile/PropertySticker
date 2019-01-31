@@ -106,8 +106,6 @@ class ApiController extends Controller
 
         //error 1.前後端不同(後端貼過還請求貼) 
         //ignore now 2.note放入資料出現錯誤(沒放成功)
-
-
         
         $token = $request->input('token');
         $finduser = $this->search_user($token);
@@ -154,6 +152,7 @@ class ApiController extends Controller
                 }
                 else{
                     $note = $request->input('note');
+                    /*
                     if($note != NULL){
                         $Note = new \App\Note;
                         $Note -> property_id = $property_id;
@@ -162,6 +161,16 @@ class ApiController extends Controller
 
                         $Note->save();
                     }
+                    */
+
+                    $Note = new \App\Note;
+                    $Note -> property_id = $property_id;
+                    $Note -> content = $note;
+                    $Note -> user = $finduser;
+
+                    $Note->save();
+
+
                     
                     $property->confirmed = 1;
                     $property->Stick_user = $finduser;
