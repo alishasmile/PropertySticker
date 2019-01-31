@@ -147,17 +147,22 @@ class ApiController extends Controller
                 $getconfirmed = $property->confirmed;
                 
                 
-                if($getconfirmed == 1){//貼過 error 1.前後端不同(後端貼過還請求貼) 
+                if($getconfirmed == 1){//貼過 error 3.前後端不同(後端貼過還請求貼) 
                     $result['status'] = 'failed';
-                    $result['error type'] = 1;
+                    $result['error type'] = 3;
                     $result['error message'] = 'Property has been sticked.';
                 }
                 else{
-                    $Note = new \App\Note;
                     $note = $request->input('note');
-                    $Note -> property_id = $property_id;
-                    $Note -> content = $note;
-                    $Note -> user = $finduser;
+                    if($note != NULL){
+                        $Note = new \App\Note;
+                        $Note -> property_id = $property_id;
+                        $Note -> content = $note;
+                        $Note -> user = $finduser;
+
+                        $Note->save();
+                    }
+                    
                     $property->confirmed = 1;
                     $property->Stick_user = $finduser;
                     /*//ignore now
@@ -168,8 +173,6 @@ class ApiController extends Controller
                     }
                     else{
                     */
-
-                        $Note->save();
                         $property->save();
                     
                         $result['status'] = 'success';

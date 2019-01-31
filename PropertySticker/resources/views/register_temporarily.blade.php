@@ -11,22 +11,22 @@
 <body>
 	<div class="login-wrap" style="margin-top: 80px;">
 		<div class="login-html">
-			<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Register</label>
-			<input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab"></label>
+			<input id="tab-3" type="radio" name="tab" class="sign-in" checked><label for="tab-3" class="tab">Register</label>
+			<input id="tab-4" type="radio" name="tab" class="for-pwd"><label for="tab-4" class="tab"></label>
 			<div class="login-form">
 				<div class="sign-in-htm">
 					<div class="group">
 						<label for="user" class="label">Username</label>
-						<input id="user" type="text" class="input">
+						<input id="userr" type="text" class="input">
 					</div>
 					<div class="group">
 						<label for="pass" class="label">Password</label>
 					</div>
 		            <div class="form-group pass_show"> 
-		                <input type="password" class="form-control" placeholder="Password"> 
+		                <input id="pw" type="password" class="form-control" placeholder="Password"> 
 		            </div> 
 					<div class="group">
-						<input type="submit" class="button" value="commit">
+						<input type="submit" class="button" value="commit" onclick="send();">
 					</div>
 					<div class="hr"></div>
 				</div>
@@ -37,6 +37,27 @@
 
 	<script type="text/javascript">
 
+	send = function (){
+	  $.ajax({
+	    url: '{{URL::asset('/createMember')}}',
+	    type: 'POST',
+	    headers: {
+          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+	    data: {
+	      user: $('#userr').val(),
+	      token: $('#pw').val()
+	    },
+	    error: function(xhr) {
+	      alert('Ajax request 發生錯誤');
+	    },
+	    success: function(response) {
+	      alert('create successfully');
+	      $('#pw').val('');
+	      $('#userr').val('');
+	    }
+	  });
+	};
 
 		  
 	$(document).ready(function(){

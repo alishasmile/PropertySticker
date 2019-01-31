@@ -42,4 +42,4 @@ Route::post('/api/stick', 'ApiController@reponse_check');//API2
 
 Route::post('/api/token_check', 'TokenController@token_check');//check token
 
-Route::get('/createMember', 'MemberController@createMember');//create member
+Route::post('/createMember', 'MemberController@createMember');//create member
