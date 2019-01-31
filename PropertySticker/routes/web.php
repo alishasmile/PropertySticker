@@ -16,8 +16,13 @@ Route::get('/', function () {
 });
 */
 
+//delete al last
 Route::get('/', function () {
-    return view('compact-table');
+    return view('admin_test');
+});
+
+Route::get('/f', function () {
+    return view('full-screen-table');
 });
 
 Route::get('/404', function () {
@@ -33,18 +38,30 @@ Route::get('/register_temporarily', function () {
 });
 
 Route::get('/createData','DataController@createData');//createData
+
 Route::post('/createMember', 'MemberController@createMember');//create member
 
 //Route::get('/test','ApiController@test');
 
 Route::post('/api/get_property', 'ApiController@reponse_property');//API
-Route::get('/api/get_property', 'ApiController@reponse_property');//API
+//Route::get('/api/get_property', 'ApiController@reponse_property');//API
 
 Route::post('/api/stick', 'ApiController@reponse_check');//API2
-Route::get('/api/stick', 'ApiController@reponse_check');//API2
+//Route::get('/api/stick', 'ApiController@reponse_check');//API2
 
 Route::post('/api/token_check', 'TokenController@token_check');//check token
-Route::get('/api/token_check', 'TokenController@token_check');//check token
+//Route::get('/api/token_check', 'TokenController@token_check');//check token
+
+Route::get('/admin', 'TokenController@session_check');//session_check
+
+Route::get('/logout', 'TokenController@logout');//logout
+
+Route::post('/getpage', 'SearchController@getpage');//用ajax
+Route::get('/getpage', 'SearchController@getpage');//用ajax
+
+
+
+Route::post('/getsearch', 'SearchController@getsearch');//用ajax
 
 
 

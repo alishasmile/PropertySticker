@@ -21,9 +21,13 @@
 		            <div class="form-group pass_show"> 
 		                <input id="login_pw" type="password" class="form-control" placeholder="Password"> 
 		            </div> 
+		            <div id="user_wrong" class="has-error " style="text-align: center; display:none">
+						<label class="control-label" for="inputError" >wrong user</label>
+					</div>
 					<div class="group">
 						<input id="login_submit" type="submit" class="button" value="Log In" onclick="sendLoginInformation();">
 					</div>
+					
 					<div class="hr"></div>
 				</div>
 				<div class="for-pwd-htm">
@@ -75,22 +79,23 @@
 		    },
 		    success: function(response) {
 		      if(response['status'] == 'success'){
-
+		      	document.location.href="{{URL::asset('/admin')}}";
 		      }
 		      else{
-		      	alert('wrong user');
+		      	$('#user_wrong').css('display', '');
 		      }
 		    }
 		  });
 		}
 
-		document.getElementById("#login_pw").addEventListener("keydown", function(e) {
-		    if (!e) { var e = window.event; }
-		    e.preventDefault(); // sometimes useful
-
-		    // Enter is pressed
-		    if (e.keyCode == 13) { submitFunction(); }
-		}, false);
+		//enter key
+		$("#login_pw").keypress(function(e){
+		  code = (e.keyCode ? e.keyCode : e.which);
+		  if (code == 13)
+		  {
+		      sendLoginInformation();
+		  }
+		});
 
 		$(document).ready(function(){
 			$('.pass_show').append('<span class="ptxt">Show</span>');  

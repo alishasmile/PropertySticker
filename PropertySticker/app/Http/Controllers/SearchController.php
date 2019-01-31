@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 class SearchController extends Controller
 {
     //
-    public function search_count(Request $request)
+    /*
+    public function getsearch(Request $request)
     {
     	$result = array();
 		$search_key = $request->input('search_key');
@@ -18,17 +19,18 @@ class SearchController extends Controller
 
 		}
 
-		$geterror_token = \App\Member::where('token', $token)->exist();
-		if($geterror_token){
-        	$getuser = \App\Member::where('token', $token)->first()->user;
-        	$result['status'] = 'success';
-        	$result['user'] = $getuser;
-		}
-		else{
-			$result['status'] = 'failed';
-			$result['error'] = 'no this token';
-		}
+		return response()->json($result);
+    }
+	*/
 
+    public function getpage(Request $request)
+    {
+    	$result = array();
+		//suppose a page 8 info
+		$pageSize = $request->input('pageSize');
+		$page = $request->input('page');
+		$items = \App\datum::whereBetween('id',[$pageSize*($page-1)+1,$pageSize*$page])->get();
+		$result['items'] = $items;
 		return response()->json($result);
     }
 }
