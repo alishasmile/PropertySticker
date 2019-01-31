@@ -49,7 +49,7 @@
 		            </div> 
 
 					<div class="group">
-						<input type="submit" class="button" value="Commit">
+						<input type="submit" class="button" value="Submit">
 					</div>
 
 					<div class="hr"></div>
@@ -74,10 +74,23 @@
 		      alert('Ajax request 發生錯誤');
 		    },
 		    success: function(response) {
-		      alert(response['status']);
+		      if(response['status'] == 'success'){
+
+		      }
+		      else{
+		      	alert('wrong user');
+		      }
 		    }
 		  });
 		}
+
+		document.getElementById("#login_pw").addEventListener("keydown", function(e) {
+		    if (!e) { var e = window.event; }
+		    e.preventDefault(); // sometimes useful
+
+		    // Enter is pressed
+		    if (e.keyCode == 13) { submitFunction(); }
+		}, false);
 
 		$(document).ready(function(){
 			$('.pass_show').append('<span class="ptxt">Show</span>');  

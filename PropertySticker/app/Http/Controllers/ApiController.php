@@ -152,7 +152,7 @@ class ApiController extends Controller
                 }
                 else{
                     $note = $request->input('note');
-                    /*
+                    
                     if($note != NULL){
                         $Note = new \App\Note;
                         $Note -> property_id = $property_id;
@@ -161,17 +161,7 @@ class ApiController extends Controller
 
                         $Note->save();
                     }
-                    */
 
-                    $Note = new \App\Note;
-                    $Note -> property_id = $property_id;
-                    $Note -> content = $note;
-                    $Note -> user = $finduser;
-
-                    $Note->save();
-
-
-                    
                     $property->confirmed = 1;
                     $property->Stick_user = $finduser;
                     /*//ignore now

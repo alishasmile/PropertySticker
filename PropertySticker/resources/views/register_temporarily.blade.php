@@ -26,7 +26,7 @@
 		                <input id="pw" type="password" class="form-control" placeholder="Password"> 
 		            </div> 
 					<div class="group">
-						<input type="submit" class="button" value="commit" onclick="send();">
+						<input type="submit" class="button" value="Submit" onclick="send();">
 					</div>
 					<div class="hr"></div>
 				</div>

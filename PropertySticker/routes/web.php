@@ -32,14 +32,20 @@ Route::get('/register_temporarily', function () {
     return view('register_temporarily');
 });
 
-Route::get('/createData','DataController@createData');
+Route::get('/createData','DataController@createData');//createData
+Route::post('/createMember', 'MemberController@createMember');//create member
 
 //Route::get('/test','ApiController@test');
 
 Route::post('/api/get_property', 'ApiController@reponse_property');//API
+Route::get('/api/get_property', 'ApiController@reponse_property');//API
 
 Route::post('/api/stick', 'ApiController@reponse_check');//API2
+Route::get('/api/stick', 'ApiController@reponse_check');//API2
 
 Route::post('/api/token_check', 'TokenController@token_check');//check token
+Route::get('/api/token_check', 'TokenController@token_check');//check token
 
-Route::post('/createMember', 'MemberController@createMember');//create member
+
+
+
