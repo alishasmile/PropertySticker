@@ -17,9 +17,11 @@ Route::get('/', function () {
 */
 
 //delete al last
+/*
 Route::get('/', function () {
     return view('admin_test');
 });
+*/
 
 Route::get('/f', function () {
     return view('full-screen-table');
@@ -29,7 +31,7 @@ Route::get('/404', function () {
     return view('404');
 });
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('login');
 });
 

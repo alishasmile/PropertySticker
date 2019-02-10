@@ -10,8 +10,14 @@
 
 <body>
 	<div class="login-wrap" style="margin-top: 80px;">
-		<div class="login-html">
-			<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label>
+		
+        <div class="login-html">
+
+			<input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+			<label for="tab-1" class="tab">
+				<img src="{{URL::asset('/img/mcl_propertySticker.png')}}" class="img-circle" style="height: 20px; width: 20px;">
+				Login
+			</label>
 			<input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab">Reset Password</label>
 			<div class="login-form">
 				<div class="sign-in-htm">

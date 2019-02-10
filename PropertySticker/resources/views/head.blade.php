@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta name="_token" content="{!! csrf_token() !!}" />
 
-	    <link rel="Shortcut Icon" type="image/x-icon" href="{{URL::asset('/img/math_icon.png')}}">
+	    <link rel="Shortcut Icon" type="image/x-icon" href="{{URL::asset('/img/mcl_propertySticker.png')}}">
 
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 	    

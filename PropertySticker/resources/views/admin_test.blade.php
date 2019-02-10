@@ -16,8 +16,6 @@
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="fresh-table full-color-orange">
-						<p>{{ Session::get('user')}}</p>
-						<p>{{$DataSize}}</p>
 						<div class="bootstrap-table">
 							<div class="fixed-table-toolbar">
 								<div class="bars pull-left">
@@ -27,7 +25,7 @@
 								</div>
 								<div class="columns columns-right pull-right">
 									<button class="btn btn-default" name="refresh" title="Refresh" type="button">
-										<i class="glyphicon fa fa-refresh"></i>
+										hi, {{ Session::get('user')}}
 									</button> 
 									<button class="btn btn-default" name="toggle" title="Toggle" type="button">
 										<i class="glyphicon fa fa-th-list"></i>
@@ -75,6 +73,7 @@
 									<input class="form-control" placeholder="Search" type="text">
 								</div>
 							</div>
+							<p style="text-align: center;color: #FFF;">Searched for {{$DataSize}} pieces of information</p>
 							<div class="fixed-table-container" style="padding-bottom: 0px;">
 								<div class="fixed-table-header" style="display: none;">
 									<table></table>
