@@ -264,7 +264,6 @@
 		*/
 		dataSize = Number("{{$DataSize}}");
 		clickPage(1);
-		
     });
 	
 	var delayTimer;
@@ -485,8 +484,7 @@
 			$('#last_page>a').attr("onclick","clickPage(1);");
 		}
 
-		/////////////////////////
-
+		///////////////////////////////
 		getPageData($page,$pageSize);
 
 	}
@@ -550,7 +548,6 @@
 			$('#tbody').append('<td style="">'+item['Stick_user']+'</td>');
 			$('#tbody').append('<td style="">'+confirm+'</td>');
 			$('#tbody').append('</tr>');
-
 		}
 	}
 
