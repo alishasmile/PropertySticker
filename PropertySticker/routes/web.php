@@ -31,10 +31,6 @@ Route::get('/404', function () {
     return view('404');
 });
 
-Route::get('/', function () {
-    return view('login');
-});
-
 Route::get('/register_temporarily', function () {
     return view('register_temporarily');
 });
@@ -54,6 +50,7 @@ Route::post('/api/stick', 'ApiController@reponse_check');//API2
 Route::post('/api/token_check', 'TokenController@token_check');//check token
 //Route::get('/api/token_check', 'TokenController@token_check');//check token
 
+Route::get('/', 'TokenController@session_check');//session_check
 Route::get('/admin', 'TokenController@session_check');//session_check
 
 Route::get('/logout', 'TokenController@logout');//logout
@@ -61,6 +58,7 @@ Route::get('/logout', 'TokenController@logout');//logout
 Route::post('/getpage', 'SearchController@getpage');//用ajax
 Route::get('/getpage', 'SearchController@getpage');//用ajax
 
+Route::post('/getSearchSize','SearchController@getSearchSize');
 
 
 Route::post('/getsearch', 'SearchController@getsearch');//用ajax
