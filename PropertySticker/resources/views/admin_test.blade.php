@@ -18,7 +18,7 @@
 								<div class="bars pull-left">
 									<div class="toolbar">
 
-										<button class="btn btn-default" id="Logout" onclick="logout();" onmouseover="mouseOver()" onmouseout="mouseOut()">
+										<button class="btn btn-default" id="Logout" onclick="logout();" onmouseover="mouseOver()" onmouseout="mouseOut()"  style="font-family:'Noto Sans TC';">
 											{{ Session::get('user')}}
 										</button>
 										
@@ -30,24 +30,26 @@
 									</button>
 								</div>
 								<div class="pull-right search" >
-									<input id="searchbar" class="form-control" placeholder="Search" type="text" oninput="searching();" style="height: auto;">
+									<input id="searchbar" class="form-control" placeholder="Search" type="text" oninput="searching();" style="height: auto; font-family:'Noto Sans TC';">
 								</div>
-								<div class="columns columns-right pull-right">
-									<div class="keep-open btn-group" title="搜尋選項" id="searchBar">
-										<div class="dropdown">
-											<button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												找編號
+								<div class="columns columns-right pull-right"  >
+									<div class="keep-open btn-group" title="搜尋選項" id="searchBar" >
+										<div class="dropdown" >
+											<button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family:'Noto Sans TC';">
+												依編號
 											</button>
-											<ul class="dropdown-menu">
-												  <li><a href="#">找編號</a></li>
-												  <li><a href="#">找位置</a></li>
-												  <li><a href="#">找名稱</a></li>
-												  <li><a href="#">抓戰犯</a></li>
+											<ul class="dropdown-menu" >
+												  <li><a href="#" >依編號</a></li>
+												  <li><a href="#" >依位置</a></li>
+												  <li><a href="#" >依名稱</a></li>
+												  <li><a href="#" >抓戰犯</a></li>
 											</ul>
 										</div>
 									</div>
 								</div>
 							</div>
+							<!--中國人模式-->
+							<input type="checkbox" name="vehicle1" value="Bike" onchange="chineseMode();">台灣傳統模式<br>
 							
 							<div class="row justify-content-around">
 								<div class="row">
@@ -55,7 +57,7 @@
 									  <i class="fa fa-spinner fa-spin" style="font-size:2em"></i>
 									</div>
 									&nbsp&nbsp
-									<p style="color: #FFF;" id="searchInfo">
+									<p style="color: #FFF; font-family:'Noto Sans TC';" id="searchInfo">
 										全部共有 {{$DataSize}} 筆財產
 									</p>
 								</div>
@@ -79,37 +81,37 @@
 												</th>
 												<th data-field="property_id" style="">
 													<div class="th-inner">
-														property_id
+														財產編號
 													</div>
 													<div class="fht-cell"></div>
 												</th>
 												<th data-field="name" style="">
 													<div class="th-inner">
-														Name
+														財產名稱
 													</div>
 													<div class="fht-cell"></div>
 												</th>
 												<th data-field="place" style="">
 													<div class="th-inner">
-														Place
+														財產位置
 													</div>
 													<div class="fht-cell"></div>
 												</th>
 												<th data-field="Stick_user" style="">
 													<div class="th-inner">
-														Stick_user
+														確認人
 													</div>
 													<div class="fht-cell"></div>
 												</th>
 												<th data-field="Confirmed" style="">
 													<div class="th-inner">
-														Confirmed
+														已確認
 													</div>
 													<div class="fht-cell"></div>
 												</th>
 											</tr>
 										</thead>
-										<tbody id="tbody">
+										<tbody id="tbody" >
 											
 										</tbody>
 									</table>
@@ -230,7 +232,20 @@
 
     
 <script type="text/javascript">
-
+	//中國人模式
+	var ChineseMode = 0;
+	var currentPage;
+	
+	function chineseMode(){
+		if(ChineseMode == 1){
+			ChineseMode = 0;
+			clickPage(currentPage);
+		}
+		else{
+			ChineseMode = 1;
+			clickPage(currentPage);
+		}
+	}
 	$( document ).ready(function() {
 	    /*
 	    var ul = document.createElement('ul');
@@ -248,9 +263,9 @@
 	  $(".dropdown-menu li a").click(function(){
 		var selText = $(this).text();
 		$(this).parents('.btn-group').find('.dropdown-toggle').html(selText);
-		if(selText == "找編號"){searchMode=1;}
-		else if(selText == "找位置"){searchMode=2;}
-		else if(selText == "找名稱"){searchMode=3;}
+		if(selText == "依編號"){searchMode=1;}
+		else if(selText == "依位置"){searchMode=2;}
+		else if(selText == "依名稱"){searchMode=3;}
 		else if(selText == "抓戰犯"){searchMode=4;}
 		searching();
 		$("#searchBar").removeClass('open');
@@ -334,6 +349,7 @@
 		var $pageSize = 30;
 		$max_page=Math.ceil(dataSize/$pageSize);
 		$("#loading").css("display","");
+		currentPage = $page;
 
 		$('#first_button').css("display","");
 		$('#second_button').css("display","");
@@ -559,9 +575,15 @@
 		for(var i in response['items']){
 			item = response['items'][i];
 			var confirm;
-			if(item['confirmed'] == 0){ confirm = "no"; }
-			else{ confirm = "yes";}
-
+			if(item['confirmed'] == 0){ confirm = "否"; }
+			else{ confirm = "是";}
+			//中國人模式
+			if(ChineseMode ==1 ) {
+				item['property_id'] = NumToChinese(item['property_id']);
+				item['place'] = NumToChinese(item['place']);
+				item['name'] = NumToChinese(item['name']);
+			}
+			
 			$('#tbody').append('<tr data-index='+i.toString()+'>');
 			$('#tbody').append('<td style="">'+item['id'].toString()+'</td>');
 			$('#tbody').append('<td style="">'+item['property_id']+'</td>');
@@ -574,6 +596,74 @@
 		$("#loading").css("display","none");
 	}
 
+	//中國人模式
+	function NumToChinese(input) { 
+		var result="";
+		for (var i = 0; i < input.length; i++) {
+			var ch = input[i];
+			var tran;
+			switch(ch){
+				case '1':
+					tran = '壹';
+					break;
+				case '2':
+					tran = '貳';
+					break;
+				case '3':
+					tran = '叄';
+					break;
+				case '4':
+					tran = '肆';
+					break;
+				case '5':
+					tran = '伍';
+					break;
+				case '6':
+					tran = '陸';
+					break;
+				case '7':
+					tran = '柒';
+					break;
+				case '8':
+					tran = '捌';
+					break;
+				case '9':
+					tran = '玖';
+					break;
+				case '0':
+					tran = '零';
+					break;
+				case 'A':
+				case 'a':
+					tran = '欸';
+					break;
+				case 'B':
+				case 'b':
+					tran = '逼';
+					break;
+				case 'C':
+				case 'c':
+					tran = '吸';
+					break;
+				case 'D':
+				case 'd':
+					tran = '滴';
+					break;
+				case 'E':
+				case 'e':
+					tran = '伊';
+					break;
+				case '-':
+					tran = '之';
+					break;
+				default:
+					tran = input[i];
+					break;
+			}
+		  result = result.concat(tran);
+		}
+		return result;
+	}
 </script>
 
 
