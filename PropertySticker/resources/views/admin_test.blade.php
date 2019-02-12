@@ -653,6 +653,90 @@
 				case 'e':
 					tran = '伊';
 					break;
+				case 'F':
+				case 'f':
+					tran = '诶府';
+					break;
+				case 'G':
+				case 'g':
+					tran = '居';
+					break;
+				case 'H':
+				case 'h':
+					tran = '诶曲';
+					break;
+				case 'I':
+				case 'i':
+					tran = '挨';
+					break;
+				case 'J':
+				case 'j':
+					tran = '接';
+					break;
+				case 'K':
+				case 'k':
+					tran = 'ㄎㄟ';
+					break;
+				case 'L':
+				case 'l':
+					tran = '诶樓';
+					break;
+				case 'M':
+				case 'm':
+					tran = '诶母';
+					break;
+				case 'N':
+				case 'n':
+					tran = '恩';
+					break;
+				case 'O':
+				case 'o':
+					tran = '歐';
+					break;
+				case 'P':
+				case 'p':
+					tran = '批';
+					break;
+				case 'Q':
+				case 'q':
+					tran = 'ㄎ一ㄡ';
+					break;
+				case 'R':
+				case 'r':
+					tran = 'ㄚˊ';
+					break;
+				case 'S':
+				case 's':
+					tran = '欸斯';
+					break;
+				case 'T':
+				case 't':
+					tran = '踢';
+					break;
+				case 'U':
+				case 'u':
+					tran = '優';
+					break;
+				case 'V':
+				case 'v':
+					tran = '府醫';
+					break;
+				case 'W':
+				case 'w':
+					tran = '搭波優';
+					break;
+				case 'X':
+				case 'x':
+					tran = '诶可斯';
+					break;
+				case 'Y':
+				case 'y':
+					tran = '歪';
+					break;
+				case 'Z':
+				case 'z':
+					tran = '力';
+					break;					
 				case '-':
 					tran = '之';
 					break;
