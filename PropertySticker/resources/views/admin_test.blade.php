@@ -17,13 +17,17 @@
 							<div class="fixed-table-toolbar">
 								<div class="bars pull-left">
 									<div class="toolbar">
-										<button class="btn btn-default" id="Logout" onclick="logout();">Logout</button>
+
+										<button class="btn btn-default" id="Logout" onclick="logout();">
+											{{ Session::get('user')}}
+											Logout
+										</button>
+										
 									</div>
 								</div>
 								<div class="columns columns-right pull-right">
-									<button class="btn btn-default" name="refresh" title="Refresh" type="button">
-										hi, {{ Session::get('user')}}
-									</button> 
+									
+										
 									<button class="btn btn-default" name="toggle" title="Toggle" type="button">
 										<i class="glyphicon fa fa-th-list"></i>
 									</button>
