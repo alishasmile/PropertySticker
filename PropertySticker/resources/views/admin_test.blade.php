@@ -52,7 +52,7 @@
 									<input id="searchbar" class="form-control" placeholder="Search" type="text" oninput="searching();">
 								</div>
 							</div>
-							<div class="load-wrapp" style="clear: left;">
+							<div class="load-wrapp" style="clear: left;" id="loading">
 						            <div class="load-3">
 						                <div class="line"></div>
 						                <div class="line"></div>
@@ -60,7 +60,7 @@
 						            </div>
 						        </div>
 							<p style="text-align: center;color: #FFF;" id="searchInfo">
-								Searched for {{$DataSize}} pieces of information
+								全部共有 {{$DataSize}} 筆財產
 							</p>
 							
 							<div class="fixed-table-container" style="padding-bottom: 0px;">
@@ -68,9 +68,6 @@
 									<table></table>
 								</div>
 								<div class="fixed-table-body">
-									<div id="loading">
-										Loading, please wait...
-									</div>
 									<table class="table table-hover table-striped" id="fresh-table" style="margin-top: 0px;">
 										<thead style="display: table-header-group;">
 											<tr>
@@ -254,6 +251,7 @@
 		if(selText == "找編號"){searchMode=1;}
 		else if(selText == "找位置"){searchMode=2;}
 		else if(selText == "找名稱"){searchMode=3;}
+		else if(selText == "抓戰犯"){searchMode=4;}
 		searching();
 		$("#searchBar").removeClass('open');
 		$("#searchBar").removeClass('show');
@@ -266,9 +264,6 @@
 		else{$("#searchBar").addClass('open');}
 	});
 	
-	$("#searchBtn").focusout(function(){
-		$("#searchBar").removeClass('open');
-	});
 	
 	var delayTimer;
 	function searching() {
@@ -293,7 +288,18 @@
 							dataSize = response['size'];
 							clickPage(1);
 							//console.log(response['size']);
-							$('#searchInfo').text("Searched for "+response['size']+" pieces of information");
+							if(searchMode == 1){
+								$('#searchInfo').text("ID和 '"+$('#searchbar').val()+"' 有關的財產共有 "+response['size']+" 筆");
+							}
+							else if(searchMode ==2){
+								$('#searchInfo').text("位置在 '"+$('#searchbar').val()+"' 的財產共有 "+response['size']+" 筆");
+							}
+							else if(searchMode ==3){
+								$('#searchInfo').text("名稱和 '"+$('#searchbar').val()+"' 有關的財產共有 "+response['size']+" 筆");
+							}
+							else if(searchMode ==4){
+								$('#searchInfo').text($('#searchbar').val()+" 確認過的的財產共有 "+response['size']+" 筆");
+							}
 						}
 					});
 				}, 500);
@@ -303,7 +309,7 @@
 			delayTimer = setTimeout(function() {
 				dataSize = Number("{{$DataSize}}");
 				clickPage(1);
-				$('#searchInfo').text("Searched for {{$DataSize}} pieces of information");
+				$('#searchInfo').text("全部共有 {{$DataSize}} 筆財產");
 				//console.log('null search');
 			}, 500);
 		}
