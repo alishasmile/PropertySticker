@@ -17,16 +17,20 @@
 							<div class="fixed-table-toolbar">
 								<div class="bars pull-left">
 									<div class="toolbar">
-										<button class="btn btn-default" id="Logout" onclick="logout();">Logout</button>
+
+										<button class="btn btn-default" id="Logout" onclick="logout();" onmouseover="mouseOver()" onmouseout="mouseOut()">
+											{{ Session::get('user')}}
+										</button>
+										
 									</div>
 								</div>
 								<div class="columns columns-right pull-right">
-									<button class="btn btn-default" name="refresh" title="Refresh" type="button">
-										hi, {{ Session::get('user')}}
-									</button> 
+									
+										
 									<button class="btn btn-default" name="toggle" title="Toggle" type="button">
 										<i class="glyphicon fa fa-th-list"></i>
 									</button>
+<<<<<<< HEAD
 									<div class="keep-open btn-group" title="搜尋選項" id="searchBar">
 										<div class="dropdown">
 											<button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -38,7 +42,24 @@
 												  <li><a href="#">找飯店</a></li>
 												  <li><a href="#">抓戰犯</a></li>
 											</ul>
+=======
+									<div class="keep-open btn-group" title="Columns" id="searchBar">
+
+
+										<div class="dropdown" id="searchBar">
+										  <button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Dropdown button
+										  </button>
+										  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item" href="#">Action</a>
+											<a class="dropdown-item" href="#">Another action</a>
+											<a class="dropdown-item" href="#">Something else here</a>
+										  </div>
+>>>>>>> e0eaa6aafb34582795061348eda6821eaf1eed3c
 										</div>
+
+
+								
 									</div>
 								</div>
 								<div class="pull-right search">
@@ -214,16 +235,6 @@
 
 </body>
 
-
-<!--<script id="blockOfStuff" type="text/html">
-		<td style="">1</td>
-		<td style="">$36,738</td>
-		<td style="">Niger</td>
-		<td style="">Oud-Turnhout</td>
-		<td style="">Oud-Turnhout</td>
-		<td style="">Oud-Turnhout</td>
-	</tr>
-</script>-->
     
 <script type="text/javascript">
 
@@ -239,6 +250,7 @@
 		clickPage(1);
     });
 	
+<<<<<<< HEAD
 	//search option
 	  $(".dropdown-menu li a").click(function(){
 		var selText = $(this).text();
@@ -249,18 +261,18 @@
 		$("#searchBar").removeClass('open');
 		$("#searchBar").removeClass('show');
 	  });	
+=======
+>>>>>>> e0eaa6aafb34582795061348eda6821eaf1eed3c
 	
 	var searchBarOpened=0
 	$("#searchBtn").click(function() {
-		if($("#searchBar").hasClass( "open" )){
-			$("#searchBar").removeClass('open');
-			$("#searchBar").removeClass('show');
-		}
+		if($("#searchBar").hasClass( "open" )){$("#searchBar").removeClass('open');}
 		else{$("#searchBar").addClass('open');}
 	});
-
-
-	//search option
+	
+	$("#searchBtn").focusout(function(){
+		$("#searchBar").removeClass('open');
+	});
 	
 	var delayTimer;
 	function searching() {
@@ -304,6 +316,15 @@
 	function logout() {//logout
         document.location.href="{{URL::asset('/logout')}}";
     }
+
+    function mouseOver() {
+		document.getElementById("Logout").textContent = "Logout";
+	}
+
+	function mouseOut() {
+		document.getElementById("Logout").textContent = "{{ Session::get('user')}}";
+	}
+
 
 	//<a href="javascript:void(0)" onclick="clickPage(1)">1</a>
 	function clickPage($page){//$page is current page
