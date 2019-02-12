@@ -36,32 +36,26 @@ Route::get('/register_temporarily', function () {
 });
 
 Route::get('/createData','DataController@createData');//createData
-
 Route::post('/createMember', 'MemberController@createMember');//create member
 
 //Route::get('/test','ApiController@test');
 
-Route::post('/api/get_property', 'ApiController@reponse_property');//API
-//Route::get('/api/get_property', 'ApiController@reponse_property');//API
+Route::prefix('api')->group(function () {
 
-Route::post('/api/stick', 'ApiController@reponse_check');//API2
-//Route::get('/api/stick', 'ApiController@reponse_check');//API2
+	Route::post('get_property', 'ApiController@reponse_property');//API
+	Route::post('stick', 'ApiController@reponse_check');//API2
+	Route::post('token_check', 'TokenController@token_check');//check token
 
-Route::post('/api/token_check', 'TokenController@token_check');//check token
-//Route::get('/api/token_check', 'TokenController@token_check');//check token
+});
 
-Route::get('/', 'TokenController@session_check');//session_check
-Route::get('/admin', 'TokenController@session_check');//session_check
-
+Route::get('/', 'TokenController@session_check');//session_check login
 Route::get('/logout', 'TokenController@logout');//logout
 
 Route::post('/getpage', 'SearchController@getpage');//用ajax
-Route::get('/getpage', 'SearchController@getpage');//用ajax
 
-Route::post('/getSearchSize','SearchController@getSearchSize');
+Route::post('/getSearchSize','SearchController@getSearchSize');//how many result
 
-
-Route::post('/getsearch', 'SearchController@getsearch');//用ajax
+//Route::post('/getsearch', 'SearchController@getsearch');//用ajax
 
 
 

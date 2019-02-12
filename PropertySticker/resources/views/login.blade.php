@@ -85,7 +85,7 @@
 		    },
 		    success: function(response) {
 		      if(response['status'] == 'success'){
-		      	document.location.href="{{URL::asset('/admin')}}";
+		      	document.location.href="{{URL::asset('/')}}";
 		      }
 		      else{
 		      	$('#user_wrong').css('display', '');
