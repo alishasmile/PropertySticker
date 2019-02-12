@@ -30,54 +30,19 @@
 									<div class="keep-open btn-group" title="Columns" id="searchBar">
 
 
-										<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
+										<div class="dropdown" id="searchBar">
+										  <button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Dropdown button
+										  </button>
+										  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item" href="#">Action</a>
+											<a class="dropdown-item" href="#">Another action</a>
+											<a class="dropdown-item" href="#">Something else here</a>
+										  </div>
+										</div>
 
 
-										<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button" id="searchBtn">
-											<i class="glyphicon fa fa-columns"></i> 
-											<span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu" role="menu">
-											<li>
-												<label>
-													<input checked="checked" data-field="id" type="checkbox" value="0"> ID
-												</label>
-											</li>
-											<li>
-												<label>
-													<input checked="checked" data-field="name" type="checkbox" value="1"> Name
-												</label>
-											</li>
-											<li>
-												<label>
-													<input checked="checked" data-field="salary" type="checkbox" value="2"> Salary
-												</label>
-											</li>
-											<li>
-												<label>
-													<input checked="checked" data-field="country" type="checkbox" value="3"> Country
-												</label>
-											</li>
-											<li>
-												<label>
-													<input checked="checked" data-field="city" type="checkbox" value="4"> City
-												</label>
-											</li>
-											<li>
-												<label>
-													<input checked="checked" data-field="actions" type="checkbox" value="5"> Actions
-												</label>
-											</li>
-										</ul>
+								
 									</div>
 								</div>
 								<div class="pull-right search">
@@ -277,10 +242,16 @@
 		clickPage(1);
     });
 	
-	/*
+	
+	var searchBarOpened=0
 	$("#searchBtn").click(function() {
-		$("#searchBar").addClass('open');
-	});*/
+		if($("#searchBar").hasClass( "open" )){$("#searchBar").removeClass('open');}
+		else{$("#searchBar").addClass('open');}
+	});
+	
+	$("#searchBtn").focusout(function(){
+		$("#searchBar").removeClass('open');
+	});
 	
 	var delayTimer;
 	function searching() {
