@@ -42,6 +42,9 @@ class SearchController extends Controller
 			else if($mode==2){
 				$items = \App\datum::where('place', 'LIKE', '%'.$keyword.'%')->skip($pageSize*($page-1))->take($pageSize)->get();
 			}
+			else if($mode==3){
+				$items = \App\datum::where('name', 'LIKE', '%'.$keyword.'%')->skip($pageSize*($page-1))->take($pageSize)->get();
+			}
 		}
 		$result['items'] = $items;
 		return response()->json($result);
@@ -55,8 +58,11 @@ class SearchController extends Controller
 		if($mode == 1){
 			$size = \App\datum::where('property_id', 'LIKE', '%'.$keyword.'%')->count();
 		}
-		else if($mode ==2){
+		else if($mode == 2){
 			$size = \App\datum::where('place', 'LIKE', '%'.$keyword.'%')->count();
+		}
+		else if($mode == 3){
+			$size = \App\datum::where('name', 'LIKE', '%'.$keyword.'%')->count();
 		}
 		
 		$result['size'] = $size;
