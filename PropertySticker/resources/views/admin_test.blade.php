@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PropertySticker</title>
-	<script type="text/javascript" src="{{URL::asset('js/jquery-1.11.2.min.js')}}"></script>
-	<script type="text/javascript" src="{{URL::asset('js/bootstrap.js')}}"></script>
-	<script type="text/javascript" src="{{URL::asset('js/bootstrap-table.js')}}"></script>
+	@include('head') 
+	@section('title')
+		<title>PropertySticker</title>
+	@endsection
 </head>
 <body>
-	@extends('head') 
-	@section('title')
-	@endsection
 	@section('body')
 	<div class="wrapper">
 		<div class="container">
@@ -30,8 +27,8 @@
 									<button class="btn btn-default" name="toggle" title="Toggle" type="button">
 										<i class="glyphicon fa fa-th-list"></i>
 									</button>
-									<div class="keep-open btn-group" title="Columns">
-										<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+									<div class="keep-open btn-group" title="Columns" id="searchBar">
+										<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button" id="searchBtn">
 											<i class="glyphicon fa fa-columns"></i> 
 											<span class="caret"></span>
 										</button>
@@ -265,6 +262,11 @@
 		dataSize = Number("{{$DataSize}}");
 		clickPage(1);
     });
+	
+	/*
+	$("#searchBtn").click(function() {
+		$("#searchBar").addClass('open');
+	});*/
 	
 	var delayTimer;
 	function searching() {
