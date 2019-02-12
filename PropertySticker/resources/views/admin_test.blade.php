@@ -48,7 +48,7 @@
 								
 									</div>
 								</div>
-								<div class="pull-right search">
+								<div class="pull-right search" style="height: auto;">
 									<input id="searchbar" class="form-control" placeholder="Search" type="text" oninput="searching();">
 								</div>
 							</div>

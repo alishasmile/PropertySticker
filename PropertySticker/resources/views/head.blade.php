@@ -11,6 +11,7 @@
 	    
 		<script type="text/javascript" src="{{URL::asset('js/jquery-1.11.2.min.js')}}"></script>
 	    <link href="{{URL::asset('css/bootstrap.css')}}" rel="stylesheet" />
+	    <link href=”css/bootstrap-switch/bootstrap-switch.css” rel=”stylesheet”>
 
 	    <link href="{{URL::asset('css/style.css')}}" rel="stylesheet" />
 		
