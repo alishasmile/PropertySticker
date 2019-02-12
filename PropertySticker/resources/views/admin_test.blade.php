@@ -262,6 +262,7 @@
 	
 	var delayTimer;
 	function searching() {
+		$("#loading").css("display","");
         if($('#searchbar').val().trim().length !=0){
 			    clearTimeout(delayTimer);
 				delayTimer = setTimeout(function() {
@@ -316,7 +317,7 @@
 	function clickPage($page){//$page is current page
 		var $pageSize = 30;
 		$max_page=Math.ceil(dataSize/$pageSize);
-
+		$("#loading").css("display","");
 
 		$('#first_button').css("display","");
 		$('#second_button').css("display","");
@@ -554,6 +555,7 @@
 			$('#tbody').append('<td style="">'+confirm+'</td>');
 			$('#tbody').append('</tr>');
 		}
+		$("#loading").css("display","none");
 	}
 
 </script>
