@@ -62,7 +62,7 @@
 								<div class="col">
 									<div class="row justify-content-end" style="margin-right: 30px;">
 										<div class="row">
-											<div class="buttonload" >
+											<div class="buttonload" id="loading">
 											  <i class="fa fa-spinner fa-spin" style="font-size:1em"></i>
 											</div>
 											&nbsp
