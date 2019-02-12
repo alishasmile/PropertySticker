@@ -39,7 +39,7 @@
 											<ul class="dropdown-menu">
 												  <li><a href="#">找編號</a></li>
 												  <li><a href="#">找位置</a></li>
-												  <li><a href="#">找飯店</a></li>
+												  <li><a href="#">找名稱</a></li>
 												  <li><a href="#">抓戰犯</a></li>
 											</ul>
 										</div>
@@ -58,7 +58,7 @@
 									<table></table>
 								</div>
 								<div class="fixed-table-body">
-									<div class="fixed-table-loading" style="top: 45px;">
+									<div id="loading">
 										Loading, please wait...
 									</div>
 									<table class="table table-hover table-striped" id="fresh-table" style="margin-top: 0px;">
@@ -243,6 +243,7 @@
 		$(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
 		if(selText == "找編號"){searchMode=1;}
 		else if(selText == "找位置"){searchMode=2;}
+		else if(selText == "找名稱"){searchMode=3;}
 		searching();
 		$("#searchBar").removeClass('open');
 		$("#searchBar").removeClass('show');
