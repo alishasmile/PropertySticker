@@ -45,6 +45,9 @@ class SearchController extends Controller
 			else if($mode==3){
 				$items = \App\datum::where('name', 'LIKE', '%'.$keyword.'%')->skip($pageSize*($page-1))->take($pageSize)->get();
 			}
+			else if($mode==4){
+				$items = \App\datum::where('Stick_user', 'LIKE', '%'.$keyword.'%')->skip($pageSize*($page-1))->take($pageSize)->get();
+			}
 		}
 		$result['items'] = $items;
 		return response()->json($result);
@@ -63,6 +66,9 @@ class SearchController extends Controller
 		}
 		else if($mode == 3){
 			$size = \App\datum::where('name', 'LIKE', '%'.$keyword.'%')->count();
+		}
+		else if($mode == 4){
+			$size = \App\datum::where('Stick_user', 'LIKE', '%'.$keyword.'%')->count();
 		}
 		
 		$result['size'] = $size;
