@@ -14,25 +14,25 @@
 				<div class="col-md-8 col-md-offset-2">
 					<div class="fresh-table full-color-orange">
 						<div class="bootstrap-table">
-							<div class="fixed-table-toolbar">
+							<div class="fixed-table-toolbar" style="padding-bottom: 0px;">
 								<div class="bars pull-left">
 									<div class="toolbar">
 
 										<button class="btn btn-default" id="Logout" onclick="logout();" onmouseover="mouseOver()" onmouseout="mouseOut()"  style="font-family:'Noto Sans TC';">
 											{{ Session::get('user')}}
 										</button>
-										
 									</div>
 								</div>
-								<div class="columns columns-right pull-right">
-									<button class="btn btn-default" name="toggle" title="Toggle" type="button">
-										<i class="glyphicon fa fa-th-list"></i>
-									</button>
-								</div>
+								
 								<div class="pull-right search" >
 									<input id="searchbar" class="form-control" placeholder="Search" type="text" oninput="searching();" style="height: auto; font-family:'Noto Sans TC';">
 								</div>
 								<div class="columns columns-right pull-right"  >
+									<!--
+									<button class="btn btn-default" name="toggle" title="Toggle" type="button">
+										<i class="glyphicon fa fa-th-list"></i>
+									</button>
+									-->
 									<div class="keep-open btn-group" title="搜尋選項" id="searchBar" >
 										<div class="dropdown" >
 											<button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family:'Noto Sans TC';">
@@ -46,23 +46,38 @@
 											</ul>
 										</div>
 									</div>
+									
 								</div>
+									
 							</div>
-							<!--中國人模式-->
-							<input type="checkbox" name="vehicle1" value="Bike" onchange="chineseMode();">台灣傳統模式<br>
-							
-							<div class="row justify-content-around">
-								<div class="row">
-									<div class="buttonload" id="loading">
-									  <i class="fa fa-spinner fa-spin" style="font-size:2em"></i>
+
+										
+							<div class="row">
+								<div class="col">
+									<label class="switch" style="margin-left: 20px;">
+									  <input type="checkbox">
+									  <span class="slider round"></span>
+									</label>
+								</div>
+								<div class="col">
+									<div class="row justify-content-end" style="margin-right: 30px;">
+										<div class="row">
+											<div class="buttonload" >
+											  <i class="fa fa-spinner fa-spin" style="font-size:1em"></i>
+											</div>
+											&nbsp
+											<p style="color: #FFF;  margin-bottom: 0px;font-size:0.5em; font-family:'Noto Sans TC';" id="searchInfo">
+												全部共有 {{$DataSize}} 筆財產
+											</p>
+										</div>
 									</div>
-									&nbsp&nbsp
-									<p style="color: #FFF; font-family:'Noto Sans TC';" id="searchInfo">
-										全部共有 {{$DataSize}} 筆財產
-									</p>
+									
 								</div>
 								
+								
 							</div>
+							
+							
 							
 							
 							<div class="fixed-table-container" style="padding-bottom: 0px;">
@@ -152,6 +167,11 @@
 										</span>
 									</div>
 									-->
+									<div class="pull-left pagination-detail">
+										<!--中國人模式-->
+										<input type="checkbox" name="vehicle1" value="Bike" onchange="chineseMode();">台灣傳統模式<br>
+									</div>
+									
 									<div class="pull-right pagination">
 										<ul class="pagination">
 											<li id="first_page" class="page-first disabled">
