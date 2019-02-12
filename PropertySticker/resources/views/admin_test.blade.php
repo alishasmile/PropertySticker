@@ -25,12 +25,14 @@
 									</div>
 								</div>
 								<div class="columns columns-right pull-right">
-									
-										
 									<button class="btn btn-default" name="toggle" title="Toggle" type="button">
 										<i class="glyphicon fa fa-th-list"></i>
 									</button>
-
+								</div>
+								<div class="pull-right search" >
+									<input id="searchbar" class="form-control" placeholder="Search" type="text" oninput="searching();" style="height: auto;">
+								</div>
+								<div class="columns columns-right pull-right">
 									<div class="keep-open btn-group" title="搜尋選項" id="searchBar">
 										<div class="dropdown">
 											<button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,25 +45,23 @@
 												  <li><a href="#">抓戰犯</a></li>
 											</ul>
 										</div>
-
-
-								
 									</div>
 								</div>
-								<div class="pull-right search" style="height: auto;">
-									<input id="searchbar" class="form-control" placeholder="Search" type="text" oninput="searching();">
-								</div>
 							</div>
-							<div class="load-wrapp" style="clear: left;" id="loading">
-						            <div class="load-3">
-						                <div class="line"></div>
-						                <div class="line"></div>
-						                <div class="line"></div>
-						            </div>
-						        </div>
-							<p style="text-align: center;color: #FFF;" id="searchInfo">
-								全部共有 {{$DataSize}} 筆財產
-							</p>
+							
+							<div class="row justify-content-around">
+								<div class="row">
+									<div class="buttonload" id="loading">
+									  <i class="fa fa-spinner fa-spin" style="font-size:2em"></i>
+									</div>
+									&nbsp&nbsp
+									<p style="color: #FFF;" id="searchInfo">
+										全部共有 {{$DataSize}} 筆財產
+									</p>
+								</div>
+								
+							</div>
+							
 							
 							<div class="fixed-table-container" style="padding-bottom: 0px;">
 								<div class="fixed-table-header" style="display: none;">
@@ -247,7 +247,7 @@
 	//search option
 	  $(".dropdown-menu li a").click(function(){
 		var selText = $(this).text();
-		$(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+		$(this).parents('.btn-group').find('.dropdown-toggle').html(selText);
 		if(selText == "找編號"){searchMode=1;}
 		else if(selText == "找位置"){searchMode=2;}
 		else if(selText == "找名稱"){searchMode=3;}
