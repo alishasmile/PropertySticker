@@ -52,7 +52,17 @@
 									<input id="searchbar" class="form-control" placeholder="Search" type="text" oninput="searching();">
 								</div>
 							</div>
-							<p style="text-align: center;color: #FFF;" id="searchInfo">Searched for {{$DataSize}} pieces of information</p>
+							<div class="load-wrapp" style="clear: left;">
+						            <div class="load-3">
+						                <div class="line"></div>
+						                <div class="line"></div>
+						                <div class="line"></div>
+						            </div>
+						        </div>
+							<p style="text-align: center;color: #FFF;" id="searchInfo">
+								Searched for {{$DataSize}} pieces of information
+							</p>
+							
 							<div class="fixed-table-container" style="padding-bottom: 0px;">
 								<div class="fixed-table-header" style="display: none;">
 									<table></table>
