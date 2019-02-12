@@ -31,22 +31,18 @@
 									<button class="btn btn-default" name="toggle" title="Toggle" type="button">
 										<i class="glyphicon fa fa-th-list"></i>
 									</button>
-									<div class="keep-open btn-group" title="Columns" id="searchBar">
-
-
+									<div class="keep-open btn-group" title="搜尋選項" id="searchBar">
 										<div class="dropdown" id="searchBar">
-										  <button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											Dropdown button
-										  </button>
-										  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="#">Action</a>
-											<a class="dropdown-item" href="#">Another action</a>
-											<a class="dropdown-item" href="#">Something else here</a>
-										  </div>
+											<button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												Search By Id
+											</button>
+											<ul class="dropdown-menu">
+												  <li><a href="#">找編號</a></li>
+												  <li><a href="#">找位置</a></li>
+												  <li><a href="#">找人</a></li>
+												  <li><a href="#">找飯店</a></li>
+											</ul>
 										</div>
-
-
-								
 									</div>
 								</div>
 								<div class="pull-right search">
@@ -246,16 +242,25 @@
 		clickPage(1);
     });
 	
+	//search option
+	  $(".dropdown-menu li a").click(function(){
+		var selText = $(this).text();
+		$(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+		$("#searchBar").removeClass('open');
+		$("#searchBar").removeClass('show');
+	  });	
 	
 	var searchBarOpened=0
 	$("#searchBtn").click(function() {
-		if($("#searchBar").hasClass( "open" )){$("#searchBar").removeClass('open');}
+		if($("#searchBar").hasClass( "open" )){
+			$("#searchBar").removeClass('open');
+			$("#searchBar").removeClass('show');
+		}
 		else{$("#searchBar").addClass('open');}
 	});
-	
-	$("#searchBtn").focusout(function(){
-		$("#searchBar").removeClass('open');
-	});
+
+
+	//search option
 	
 	var delayTimer;
 	function searching() {
