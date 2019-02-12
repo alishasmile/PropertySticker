@@ -30,11 +30,18 @@ class SearchController extends Controller
 		$pageSize = $request->input('pageSize');
 		$page = $request->input('page');
 		$keyword = $request->input('key');
+		$mode = $request->input('type');
+		
 		if($keyword==NULL){
 			$items = \App\datum::skip($pageSize*($page-1))->take($pageSize)->get();
 		}
 		else{
-			$items = \App\datum::where('property_id', 'LIKE', '%'.$keyword.'%')->skip($pageSize*($page-1))->take($pageSize)->get();
+			if($mode==1){
+				$items = \App\datum::where('property_id', 'LIKE', '%'.$keyword.'%')->skip($pageSize*($page-1))->take($pageSize)->get();
+			}
+			else if($mode==2){
+				$items = \App\datum::where('place', 'LIKE', '%'.$keyword.'%')->skip($pageSize*($page-1))->take($pageSize)->get();
+			}
 		}
 		$result['items'] = $items;
 		return response()->json($result);
@@ -44,7 +51,14 @@ class SearchController extends Controller
 	{
 		$result = array();
 		$keyword = $request->input('key');
-		$size = \App\datum::where('property_id', 'LIKE', '%'.$keyword.'%')->count();
+		$mode = $request->input('type');
+		if($mode == 1){
+			$size = \App\datum::where('property_id', 'LIKE', '%'.$keyword.'%')->count();
+		}
+		else if($mode ==2){
+			$size = \App\datum::where('place', 'LIKE', '%'.$keyword.'%')->count();
+		}
+		
 		$result['size'] = $size;
 		return response()->json($result);
 	}

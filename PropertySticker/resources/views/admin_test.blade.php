@@ -28,15 +28,15 @@
 										<i class="glyphicon fa fa-th-list"></i>
 									</button>
 									<div class="keep-open btn-group" title="搜尋選項" id="searchBar">
-										<div class="dropdown" id="searchBar">
+										<div class="dropdown">
 											<button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												Search By Id
+												找編號
 											</button>
 											<ul class="dropdown-menu">
 												  <li><a href="#">找編號</a></li>
 												  <li><a href="#">找位置</a></li>
-												  <li><a href="#">找人</a></li>
 												  <li><a href="#">找飯店</a></li>
+												  <li><a href="#">抓戰犯</a></li>
 											</ul>
 										</div>
 									</div>
@@ -234,6 +234,7 @@
 		ul.innerHTML = document.getElementById('blockOfStuff').innerHTML;
 		document.getElementById('targetElement').appendChild(ul);
 		*/
+		searchMode = 1;
 		dataSize = Number("{{$DataSize}}");
 		clickPage(1);
     });
@@ -242,6 +243,9 @@
 	  $(".dropdown-menu li a").click(function(){
 		var selText = $(this).text();
 		$(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+		if(selText == "找編號"){searchMode=1;}
+		else if(selText == "找位置"){searchMode=2;}
+		searching();
 		$("#searchBar").removeClass('open');
 		$("#searchBar").removeClass('show');
 	  });	
@@ -270,6 +274,7 @@
 							'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
 						},
 						data: {
+							type: searchMode,
 							key: $('#searchbar').val()
 						},
 						error: function(xhr) {
@@ -493,7 +498,8 @@
 				data: {
 					page: $page,
 					pageSize: $pageSize,
-					key: $('#searchbar').val()
+					key: $('#searchbar').val(),
+					type: searchMode
 				},
 				error: function(xhr) {
 					alert('頁面請求錯誤，請重新登入再試');
