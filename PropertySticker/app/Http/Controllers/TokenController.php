@@ -36,17 +36,13 @@ class TokenController extends Controller
 
     public function session_check(Request $request)//進管理頁面前做的事情集合
     {
-    	$getusers = \App\Member::all();
-    	foreach ($getusers as $user) {
-    		
-    		if($status = $request->session()->has('user')){
-                $getDataQuantity = \App\datum::all()->count();
-    			return view('admin_test',['DataSize'=>$getDataQuantity]);
-    		}
-    		else{
-    			return view('login');
-    		}
-    	}
+    	if($request->session()->has('user')){
+            $getDataQuantity = \App\datum::all()->count();
+			return view('admin_test',['DataSize'=>$getDataQuantity]);
+		}
+		else{
+			return view('login');
+		}
     }
 
     public function logout(Request $request)

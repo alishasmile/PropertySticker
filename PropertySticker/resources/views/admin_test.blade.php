@@ -26,7 +26,7 @@
 								</div>
 								
 								<div class="pull-right search" style="width: 25vw; max-width: 150px;">
-									<input id="searchbar" class="form-control" placeholder="Search" type="text" oninput="searching();" style="height: auto; font-family:'Noto Sans TC';">
+									<input id="searchbar" class="form-control" placeholder="搜尋" type="text" oninput="searching();" style="height: auto; font-family:'Noto Sans TC';">
 								</div>
 								<div class="columns columns-right pull-right"  >
 									<!--
@@ -114,12 +114,22 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        不准廢話ㄛ
+      <div class="modal-body" id="pro_id_and_name_note">
+        
+      </div>
+      <div class="modal-body" id="note_list">
+        
+      </div>
+      <div class="modal-body" id="note_list2">
+        
+      </div>
+      <div class="form-group">
+        <label for="message-text" class="col-form-label">Message:</label>
+        <textarea class="form-control" id="message_from_note"></textarea>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">Close</button>
-        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;">Save changes</button>
+        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_note">Save changes</button>
       </div>
     </div>
   </div>
@@ -136,12 +146,16 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        真的嗎
+      <div class="modal-body" id="pro_id_and_name">
+        
+      </div>
+      <div class="form-group">
+        <label for="message-text" class="col-form-label">Message:</label>
+        <textarea class="form-control" id="message_from_check"></textarea>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">Close</button>
-        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;">Save changes</button>
+        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_check">Save changes</button>
       </div>
     </div>
   </div>
@@ -352,13 +366,115 @@
 	});
 
 	function PopCheckModal(item) {
+		this.item = Array.from(item.split(','));
+		$('#pro_id_and_name').html("");
+		$('#message_from_check').val("");
+		$('#pro_id_and_name').append('財產編號 : '+this.item[2]+'<br>財產名稱 : '+this.item[3]);
+		$('#save_check').attr("onclick","sendStickInfo("+this.item[0]+");");
 		$('#ModalCheck').modal('show');
-		//item['name']
-		alert(item['id']);
 	}
 
-	function PopNoteModal() {
+	function PopNoteModal(item) {
+		this.item = Array.from(item.split(','));
+		$('#pro_id_and_name_note').html("");
+		$('#message_from_note').val("");
+		$('#note_list').html("");
+		$('#pro_id_and_name_note').append('財產編號 : '+this.item[2]+'<br>財產名稱 : '+this.item[3]);
+		$.ajax({
+			url: '{{URL::asset('/get_note_web')}}',
+			type: 'POST',
+			headers: {
+			  'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+			},
+			data: {
+			  id: this.item[0],
+			},
+			error: function(xhr) {
+			  alert('Ajax request 發生錯誤');
+			},
+			success: function(response) {
+			  if(response['status'] == 'success'){
+			  	$('#note_list').append('<hr>');
+			  	if(response['has_note_or_not'] == 'yes'){
+			  		for(var i in response['notes']){
+			  			$('#note_list').append(response['notes'][i]['user'] + ' : '+ response['notes'][i]['content']+'<hr>');
+			  		}
+			  	}
+			  	else{
+			  		$('#note_list').append('<div style="text-align: center;">no note</div><hr>');
+			  	}
+			  }
+			  else{
+			  	//document.location.href="{{URL::asset('/logout')}}";
+			  	//alert logout
+			  }
+			}
+		});
+		$('#save_note').attr("onclick","sendNoteInfo("+this.item[0]+");");
 		$('#ModalNote').modal('show');
+	}
+
+
+	function sendNoteInfo(id_from_PopNoteModal){
+	  $.ajax({
+	    url: '{{URL::asset('/add_note_web')}}',
+	    type: 'POST',
+	    headers: {
+          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+	    data: {
+	      id: id_from_PopNoteModal,
+	      note: $('#message_from_note').val(),
+	    },
+	    error: function(xhr) {
+	      alert('Ajax request 發生錯誤');
+	    },
+	    success: function(response) {
+	      if(response['status'] == 'success'){
+	      	//alert success
+	      	$('#note_list').append(response['user'] + ' : '+ response['note']+'<hr>');
+	      	$('#message_from_note').val("");
+	      	$('#note_list2').html("");
+	      }
+	      else{
+	      	if(response['error type'] == 1){
+	      		//document.location.href="{{URL::asset('/logout')}}";
+	      		//alert logout
+	      	}
+	      	else{
+	      		$('#note_list2').html("");
+	      		$('#note_list2').append('打啥呢');
+	      	}
+	      }
+	    }
+	  });
+	}
+
+	function sendStickInfo(id_from_PopCheckModal){
+	  $.ajax({
+	    url: '{{URL::asset('/stick_web')}}',
+	    type: 'POST',
+	    headers: {
+          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+	    data: {
+	      id: id_from_PopCheckModal,
+	      note: $('#message_from_check').val(),
+	    },
+	    error: function(xhr) {
+	      alert('Ajax request 發生錯誤');
+	    },
+	    success: function(response) {
+	      if(response['status'] == 'success'){
+	      	clickPage(currentPage);
+	      	$('#ModalCheck').modal('hide');
+	      }
+	      else{
+	      	//document.location.href="{{URL::asset('/logout')}}";
+	      	//alert logout
+	      }
+	    }
+	  });
 	}
 
 	//switch change depends on the size of interface
@@ -686,8 +802,11 @@
 		$('#tbody').html("");
 		for(var i in response['items']){
 			var item = response['items'][i];
+
+			var info_forModal = "'"+Object.values(item)+"'";
 			var confirm;
-			if(item['confirmed'] == 0){ confirm = '<td onclick="PopCheckModal();" style="text-align: center;"><i class="fa fa-remove"></i>'; }
+
+			if(item['confirmed'] == 0){ confirm = '<td onclick="PopCheckModal('+info_forModal+');" style="text-align: center;"><i class="fa fa-remove"></i>'; }
 			else{ confirm = '<td style="text-align: center;"><i class="fa fa-heart"></i>';}
 			
 			//中國人模式
@@ -704,7 +823,7 @@
 			$('#tbody').append('<td style="">'+item['place']+'</td>');
 			$('#tbody').append('<td style="text-align: center;">'+item['Stick_user']+'</td>');
 			$('#tbody').append(confirm+'</td>');
-			$('#tbody').append('<td style="text-align: center;"  onclick="PopNoteModal();"><i class="fa fa-edit"></i></td>');
+			$('#tbody').append('<td style="text-align: center;"  onclick="PopNoteModal('+info_forModal+');"><i class="fa fa-edit"></i></td>');
 			$('#tbody').append('</tr>');
 			//
 		}

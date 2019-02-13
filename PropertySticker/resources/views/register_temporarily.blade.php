@@ -26,7 +26,7 @@
 		                <input id="pw" type="password" class="form-control" placeholder="Password"> 
 		            </div> 
 					<div class="group">
-						<input type="submit" class="button" value="Submit" onclick="send();">
+						<input type="submit" class="button" value="Submit" onclick="send();" >
 					</div>
 					<div class="hr"></div>
 				</div>
@@ -58,6 +58,15 @@
 	    }
 	  });
 	};
+
+	//enter key
+	$("#pw").keypress(function(e){
+	  code = (e.keyCode ? e.keyCode : e.which);
+	  if (code == 13)
+	  {
+	      send();
+	  }
+	});
 
 		  
 	$(document).ready(function(){

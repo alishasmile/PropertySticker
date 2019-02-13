@@ -42,14 +42,18 @@ Route::post('/createMember', 'MemberController@createMember');//create member
 
 Route::prefix('api')->group(function () {
 
-	Route::post('get_property', 'ApiController@reponse_property');//API
-	Route::post('stick', 'ApiController@reponse_check');//API2
-	Route::post('token_check', 'TokenController@token_check');//check token
+	Route::post('get_property', 'ApiController@reponse_property');//API phone
+	Route::post('stick', 'ApiController@reponse_check');//API2 phone
+	Route::post('token_check', 'TokenController@token_check');//check token phone and web
 
 });
 
 Route::get('/', 'TokenController@session_check');//session_check login
 Route::get('/logout', 'TokenController@logout');//logout
+
+Route::post('/stick_web', 'ApiController@Stick_check');//Stick_check web
+Route::post('/get_note_web', 'ApiController@getNote');//getNote web
+Route::post('/add_note_web', 'ApiController@addNote');//addNote web
 
 Route::post('/getpage', 'SearchController@getpage');//用ajax
 

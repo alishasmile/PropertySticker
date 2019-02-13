@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Hash;
 
 class ApiController extends Controller
 {
-    //
+    //jst funcs
+
     public function convert_property_id($property_id_input){
 
         $pieces = explode("-", $property_id_input);
@@ -17,12 +18,6 @@ class ApiController extends Controller
 
         return $property_id;
     }
-
-    /*
-    public function test(){
-    	return $this->convert_property_id('103-3-0023');
-    }
-	*/
 
     public function search_user($token){
         
@@ -41,12 +36,12 @@ class ApiController extends Controller
         }
     }
 
+
 ///////////////////////////////////////////////////////////////
 
 //type 1
-    public function reponse_property(Request $request)//API
+    public function reponse_property(Request $request)//API for phone
     {
-
 
         //error: 1.user wrong 2.no this property(contains format error)
 
@@ -100,7 +95,7 @@ class ApiController extends Controller
 ///////////////////////////////////////////////////////////////
 
             
-    public function reponse_check(Request $request)//API2
+    public function reponse_check(Request $request)//API2 for phone
     {
         $result = array();
 
@@ -188,9 +183,121 @@ class ApiController extends Controller
         
     }
 
+///////////////////////////////////////////////////////////////
 
+    public function Stick_check(Request $request)//API3
+    {
+        $result = array();
+
+        if($request->session()->has('user')){
+            $id = $request->input('id');
+            $note = $request->input('note');
+            
+            $property= \App\datum::where('id', $id)->first();
+            $getconfirmed = $property->confirmed;
+            
+            if($getconfirmed == 1){//貼過 error 1.前後端不同(後端貼過還請求貼) 
+                $result['status'] = 'failed';
+                $result['error type'] = 1;
+                $result['error message'] = 'Property has been sticked.';
+            }
+            else{
+                $finduser = $request->session()->get('user');
+                
+                if($note != NULL){
+                    $Note = new \App\Note;
+                    $Note -> property_id = $property->property_id;
+                    $Note -> content = $note;
+                    $Note -> user = $finduser;
+
+                    $Note->save();
+                }
+
+                $property->confirmed = 1;
+                $property->Stick_user = $finduser;
+                $property->save();
+                $result['status'] = 'success';
+
+            }
+
+        }
+        else{
+            $result['status'] = 'failed';
+            $result['error type'] = 2;
+            $result['error message'] = 'Not login';
+        }
+        
+        return response()->json($result);
+        
+    }
 
 ///////////////////////////////////////////////////////////////
 
+    public function getNote(Request $request)//API4 拿所有留言
+    {
+        $result = array();
+        $id = $request->input('id');
+        $property_id= \App\datum::where('id', $id)->first()->property_id;
+        $notes_info = \App\Note::where('property_id', $property_id);
+
+        //error 1.no login
+        if($request->session()->has('user')){
+            if($notes_info->exists()){
+                $result['status'] = 'success';
+                $result['has_note_or_not'] = 'yes';
+                $result['notes'] = $notes_info->get();//all
+            }
+            else{//no note
+                $result['status'] = 'success';
+                $result['has_note_or_not'] = 'no';
+            }
+        }
+        else{//error 1
+            $result['status'] = 'failed';
+            $result['error type'] = 1;
+            $result['error message'] = 'Not login';
+        }
+
+        return response()->json($result);
+        
+    }
+
+///////////////////////////////////////////////////////////////
+
+    public function addNote(Request $request)//API5 新增留言
+    {
+        $result = array();
+        $id = $request->input('id');
+        $note = $request->input('note');
+        $property_id= \App\datum::where('id', $id)->first()->property_id;
+        //$notes_info = \App\Note::where('property_id', $property_id);
+
+        //error 1.no login 2.no note
+        if($request->session()->has('user')){
+            if($note != NULL){
+                $Note = new \App\Note ;
+                $Note -> property_id = $property_id;
+                $Note -> content = $note;
+                $Note -> user = $request->session()->get('user');
+                $result['status'] = 'success';
+                $result['user'] = $request->session()->get('user');
+                $result['note'] = $note;
+                $Note->save();
+            }
+            else{//error 2
+                $result['status'] = 'failed';
+                $result['error type'] = 2;
+                $result['error message'] = 'No Note';
+            }
+        }
+        else{//error 1
+            $result['status'] = 'failed';
+            $result['error type'] = 1;
+            $result['error message'] = 'Not login';
+        }
+
+        return response()->json($result);
+        
+    }
 
 }
