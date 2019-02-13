@@ -66,7 +66,7 @@
 											  <i class="fa fa-spinner fa-spin" style="font-size:1em"></i>
 											</div>
 											&nbsp
-											<p style="color: #FFF;  margin-bottom: 0px;font-size:0.5em; font-family:'Noto Sans TC';" id="searchInfo">
+											<p style="color: #FFF;  margin-bottom: 0px;font-size:1em; font-family:'Noto Sans TC';" id="searchInfo">
 												全部共有 {{$DataSize}} 筆財產
 											</p>
 										</div>
