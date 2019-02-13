@@ -110,7 +110,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="pro_id_note">想註記什麼呢</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border-color: #AAAAAA; color: #AAAAAA;">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -118,8 +118,8 @@
         不准廢話ㄛ
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">Close</button>
+        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;">Save changes</button>
       </div>
     </div>
   </div>
@@ -132,7 +132,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="pro_id">真的貼過了嗎</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border-color: #AAAAAA; color: #AAAAAA;">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -140,8 +140,8 @@
         真的嗎
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">Close</button>
+        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;">Save changes</button>
       </div>
     </div>
   </div>
