@@ -5,6 +5,7 @@
 	@section('title')
 		<title>PropertySticker</title>
 	@endsection
+
 </head>
 <body>
 	@section('body')
@@ -63,17 +64,28 @@
 										<p style="color: #FFF;  margin-bottom: 0px;font-size:1em; font-family:'Noto Sans TC';">
 											顯示已貼
 										</p>
-										&nbsp&nbsp
-										<label class="switch" style="margin-bottom: 0px;">
-										  <input type="checkbox">
+										<div class="row align-items-center" id="web_switch" style="display:none;">
+											&nbsp&nbsp
+											<label class="switch" style="margin-left: 15px; margin-bottom: 0px;">
+											  <input type="checkbox" onchange="chineseMode();">
+											  <span class="slider round"></span>
+											</label>
+											&nbsp
+											<p style="color: #FFF;  margin-bottom: 0px;font-size:1em; font-family:'Noto Sans TC';">
+												台灣傳統模式
+											</p>
+										</div>
+									</div>
+									<div class="row align-items-center" id="phone_switch" style="display:none;">
+										<label class="switch" style="margin-left: 30px;margin-bottom: 0px; margin-top: 5px;">
+										  <input type="checkbox" onchange="chineseMode();">
 										  <span class="slider round"></span>
 										</label>
 										&nbsp
 										<p style="color: #FFF;  margin-bottom: 0px;font-size:1em; font-family:'Noto Sans TC';">
-											顯示已貼
+											台灣傳統模式
 										</p>
 									</div>
-									
 								</div>
 								<div class="col">
 									<div class="row justify-content-end" style="margin-right: 30px;">
@@ -87,16 +99,56 @@
 											</p>
 										</div>
 									</div>
-									
 								</div>
-								
-								
 							</div>
-							
-							
-							
-							
 							<div class="fixed-table-container" style="padding-bottom: 0px;">
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalNote" tabindex="-1" role="dialog" aria-labelledby="pro_id_note" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pro_id_note">想註記什麼呢</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        不准廢話ㄛ
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalCheck" tabindex="-1" role="dialog" aria-labelledby="pro_id" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pro_id">真的貼過了嗎</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        真的嗎
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 								<div class="fixed-table-header" style="display: none;">
 									<table></table>
 								</div>
@@ -104,7 +156,7 @@
 									<table class="table table-hover table-striped" id="fresh-table" style="margin-top: 0px;">
 										<thead style="display: table-header-group;">
 											<tr>
-												<th data-field="id" style="">
+												<th data-field="id" style="text-align: center;">
 													<div class="th-inner">
 														ID
 													</div>
@@ -140,13 +192,23 @@
 													</div>
 													<div class="fht-cell"></div>
 												</th>
+												<th data-field="Note" style="">
+													<div class="th-inner">
+														註記
+													</div>
+													<div class="fht-cell"></div>
+												</th>
 											</tr>
 										</thead>
 										<tbody id="tbody" >
-											
 										</tbody>
 									</table>
 								</div>
+
+
+
+
+
 								<div class="fixed-table-footer" style="display: none;">
 									<table>
 										<tbody>
@@ -183,10 +245,7 @@
 										</span>
 									</div>
 									-->
-									<div class="pull-left pagination-detail">
-										<!--中國人模式-->
-										<input type="checkbox" name="vehicle1" value="Bike" onchange="chineseMode();">台灣傳統模式<br>
-									</div>
+									
 									
 									<div class="pull-right pagination">
 										<ul class="pagination">
@@ -267,12 +326,12 @@
 	-->
 </body>
 
-    
 <script type="text/javascript">
+	
 	//中國人模式
 	var ChineseMode = 0;
 	var currentPage;
-	
+
 	function chineseMode(){
 		if(ChineseMode == 1){
 			ChineseMode = 0;
@@ -283,18 +342,36 @@
 			clickPage(currentPage);
 		}
 	}
+
 	$( document ).ready(function() {
-	    /*
-	    var ul = document.createElement('ul');
-		ul.setAttribute('class', 'pagination');
-		ul.innerHTML = document.getElementById('blockOfStuff').innerHTML;
-		document.getElementById('targetElement').appendChild(ul);
-		*/
 		searchMode = 1;
 		dataSize = Number("{{$DataSize}}");
 		clickPage(1);
-    });
-	
+		switch_change();
+
+	});
+
+	function PopCheckModal(item) {
+		$('#ModalCheck').modal('show');
+		//item['name']
+		alert(item['id']);
+	}
+
+	function PopNoteModal() {
+		$('#ModalNote').modal('show');
+	}
+
+	//switch change depends on the size of interface
+	function switch_change() {
+		if(document.body.clientWidth > 900){
+			$('#web_switch').css("display","");
+			$('#phone_switch').css("display","none");
+		}
+		else{
+			$('#web_switch').css("display","none");
+			$('#phone_switch').css("display","");
+		}
+	}
 
 	//search option
 	  $(".dropdown-menu li a").click(function(){
@@ -309,22 +386,21 @@
 		$("#searchBar").removeClass('show');
 	  });	
 
-	
 	var searchBarOpened=0
 	$("#searchBtn").click(function() {
 		if($("#searchBar").hasClass( "open" )){$("#searchBar").removeClass('open');}
 		else{$("#searchBar").addClass('open');}
 	});
-	
-	
+
+
 	var delayTimer;
 	function searching() {
 		$("#loading").css("display","");
-        if($('#searchbar').val().trim().length !=0){
+	    if($('#searchbar').val().trim().length !=0){
 			    clearTimeout(delayTimer);
 				delayTimer = setTimeout(function() {
 					$.ajax({
-						url: '{{URL::asset('/getSearchSize')}}',
+						url: "/getSearchSize",
 						type: 'POST',
 						headers: {
 							'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -365,21 +441,20 @@
 				//console.log('null search');
 			}, 500);
 		}
-    }
-	
-	
-	function logout() {//logout
-        document.location.href="{{URL::asset('/logout')}}";
-    }
+	}
 
-    function mouseOver() {
+
+	function logout() {//logout
+	    document.location.href="/logout";
+	}
+
+	function mouseOver() {
 		document.getElementById("Logout").textContent = "Logout";
 	}
 
 	function mouseOut() {
 		document.getElementById("Logout").textContent = "{{ Session::get('user')}}";
 	}
-
 
 	//<a href="javascript:void(0)" onclick="clickPage(1)">1</a>
 	function clickPage($page){//$page is current page
@@ -567,7 +642,7 @@
 
 		if($('#searchbar').val().trim().length !=0){//search
 			$.ajax({
-				url: '{{URL::asset('/getpage')}}',
+				url: "/getpage",
 				type: 'POST',
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -588,7 +663,7 @@
 		}
 		else{//not search(get all data)
 			$.ajax({
-				url: '{{URL::asset('/getpage')}}',
+				url: "/getpage",
 				type: 'POST',
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -605,30 +680,33 @@
 				}
 			});
 		}
-    }
-	
+	}
+
 	function updateTable(response){
 		$('#tbody').html("");
 		for(var i in response['items']){
-			item = response['items'][i];
+			var item = response['items'][i];
 			var confirm;
-			if(item['confirmed'] == 0){ confirm = "否"; }
-			else{ confirm = "是";}
+			if(item['confirmed'] == 0){ confirm = '<td onclick="PopCheckModal();" style="text-align: center;"><i class="fa fa-remove"></i>'; }
+			else{ confirm = '<td style="text-align: center;"><i class="fa fa-heart"></i>';}
+			
 			//中國人模式
-			if(ChineseMode ==1 ) {
+			if(ChineseMode == 1 ) {
 				item['property_id'] = NumToChinese(item['property_id']);
 				item['place'] = NumToChinese(item['place']);
 				item['name'] = NumToChinese(item['name']);
 			}
 			
 			$('#tbody').append('<tr data-index='+i.toString()+'>');
-			$('#tbody').append('<td style="">'+item['id'].toString()+'</td>');
+			$('#tbody').append('<td style="text-align: center;">'+item['id'].toString()+'</td>');
 			$('#tbody').append('<td style="">'+item['property_id']+'</td>');
 			$('#tbody').append('<td style="">'+item['name']+'</td>');
 			$('#tbody').append('<td style="">'+item['place']+'</td>');
-			$('#tbody').append('<td style="">'+item['Stick_user']+'</td>');
-			$('#tbody').append('<td style="">'+confirm+'</td>');
+			$('#tbody').append('<td style="text-align: center;">'+item['Stick_user']+'</td>');
+			$('#tbody').append(confirm+'</td>');
+			$('#tbody').append('<td style="text-align: center;"  onclick="PopNoteModal();"><i class="fa fa-edit"></i></td>');
 			$('#tbody').append('</tr>');
+			//
 		}
 		$("#loading").css("display","none");
 	}
@@ -785,7 +863,8 @@
 		}
 		return result;
 	}
-</script>
+
+</script>	
 
 
 </html>
