@@ -208,8 +208,8 @@ transition: .3s ease all;
 .switch {
   position: relative;
   display: inline-block;
-  width: 3vh;
-  height: 1.7vh;
+  width: 4vh;
+  height: 2.3vh;
 }
 
 /* Hide default HTML checkbox */
@@ -235,10 +235,10 @@ transition: .3s ease all;
 .slider:before {
   position: absolute;
   content: "";
-  height: 1.3vh;
-  width: 1.3vh;
-  left: 0.2vh;
-  bottom: 0.2vh;
+  height: 1.72vh;
+  width: 1.72vh;
+  left: 0.26vh;
+  bottom: 0.26vh;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
@@ -253,9 +253,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(1.3vh);
-  -ms-transform: translateX(1.3vh);
-  transform: translateX(1.3vh);
+  -webkit-transform: translateX(1.72vh);
+  -ms-transform: translateX(1.72vh);
+  transform: translateX(1.72vh);
 }
 
 /* Rounded sliders */

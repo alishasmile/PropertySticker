@@ -24,7 +24,7 @@
 									</div>
 								</div>
 								
-								<div class="pull-right search" >
+								<div class="pull-right search" style="width: 25vw; max-width: 150px;">
 									<input id="searchbar" class="form-control" placeholder="Search" type="text" oninput="searching();" style="height: auto; font-family:'Noto Sans TC';">
 								</div>
 								<div class="columns columns-right pull-right"  >
@@ -54,10 +54,26 @@
 										
 							<div class="row">
 								<div class="col">
-									<label class="switch" style="margin-left: 20px;">
-									  <input type="checkbox">
-									  <span class="slider round"></span>
-									</label>
+									<div class="row align-items-center">
+										<label class="switch" style="margin-left: 30px;margin-bottom: 0px;">
+										  <input type="checkbox">
+										  <span class="slider round"></span>
+										</label>
+										&nbsp
+										<p style="color: #FFF;  margin-bottom: 0px;font-size:1em; font-family:'Noto Sans TC';">
+											顯示已貼
+										</p>
+										&nbsp&nbsp
+										<label class="switch" style="margin-bottom: 0px;">
+										  <input type="checkbox">
+										  <span class="slider round"></span>
+										</label>
+										&nbsp
+										<p style="color: #FFF;  margin-bottom: 0px;font-size:1em; font-family:'Noto Sans TC';">
+											顯示已貼
+										</p>
+									</div>
+									
 								</div>
 								<div class="col">
 									<div class="row justify-content-end" style="margin-right: 30px;">
@@ -212,6 +228,7 @@
 			</div>
 		</div>
 	</div>
+	<!--
 	<div class="fixed-plugin" style="top: 300px">
 		<div class="dropdown">
 			<a data-toggle="dropdown" href="#"><i class="fa fa-cog fa-2x"></i></a>
@@ -247,7 +264,7 @@
 			</ul>
 		</div>
 	</div>
-
+	-->
 </body>
 
     
