@@ -35,7 +35,7 @@
 									</button>
 									-->
 									<div class="keep-open btn-group" title="搜尋選項" id="searchBar" >
-										<div class="dropdown" >
+										<div class="dropdown" style="line-height: 22.5px;">
 											<button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family:'Noto Sans TC';">
 												依編號
 											</button>
@@ -109,7 +109,7 @@
 								  <div class="modal-dialog modal-dialog-centered" role="document">
 								    <div class="modal-content">
 								      <div class="modal-header">
-								        <h5 class="modal-title" id="pro_id">真的貼過了嗎</h5>
+								        <h5 class="modal-title" id="pro_id" style="font-family:'Noto Sans TC';">真的貼過了嗎</h5>
 								        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border-color: #AAAAAA; color: #AAAAAA;">
 								          <span aria-hidden="true">&times;</span>
 								        </button>
@@ -118,12 +118,12 @@
 								        
 								      </div>
 								      <div class="form-group">
-								        <label for="message-text" class="col-form-label" style="margin-left: 12px;">註記:</label>
+								        <label for="message-text" class="col-form-label" style="margin-left: 12px; font-family:'Noto Sans TC';" >註記:</label>
 								        <textarea class="form-control" id="message_from_check" style="border-color: rgba(23, 23, 23, 0.3); color: #232323; margin: 10px 10px 10px 12px; width: 95%;"></textarea>
 								      </div>
 								      <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">取消</button>
-								        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_check">送出</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA; font-family:'Noto Sans TC';">取消</button>
+								        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7; font-family:'Noto Sans TC';" id="save_check">送出</button>
 								      </div>
 								    </div>
 								  </div>
@@ -134,7 +134,7 @@
 								  <div class="modal-dialog modal-dialog-centered" role="document">
 								    <div class="modal-content">
 								      <div class="modal-header">
-								        <h5 class="modal-title" id="pro_id_note">想註記什麼呢</h5>
+								        <h5 class="modal-title" id="pro_id_note" style="font-family:'Noto Sans TC';">想註記什麼呢</h5>
 								        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border-color: #AAAAAA; color: #AAAAAA;">
 								          <span aria-hidden="true">&times;</span>
 								        </button>
@@ -145,7 +145,7 @@
 								      <div class="modal-body" id="note_list">
 								        
 								      </div>
-								      <div style="text-align: center; display: block;" id="no_note">
+								      <div style="text-align: center; display: block; font-family:'Noto Sans TC';" id="no_note">
 									      no note
 									      <hr>
 								  	  </div>
@@ -153,12 +153,12 @@
 								        
 								      </div>
 								      <div class="form-group">
-								        <label for="message-text" class="col-form-label" style="margin-left: 12px;">註記:</label>
+								        <label for="message-text" class="col-form-label" style="margin-left: 12px; font-family:'Noto Sans TC';">註記:</label>
 								        <textarea class="form-control" id="message_from_note" style="border-color: rgba(23, 23, 23, 0.3); color: #232323; margin: 10px 10px 10px 12px; width: 95%;"></textarea>
 								      </div>
 								      <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">取消</button>
-								        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_note">送出</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA; font-family:'Noto Sans TC';">取消</button>
+								        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7; font-family:'Noto Sans TC';" id="save_note">送出</button>
 								      </div>
 								    </div>
 								  </div>
@@ -876,9 +876,9 @@
 			$('#tbody').append('<tr data-index='+i.toString()+'>');
 			$('#tbody').append('<td style="text-align: center;">'+item['id'].toString()+'</td>');
 			$('#tbody').append('<td style="">'+item['property_id']+'</td>');
-			$('#tbody').append('<td style="">'+item['name']+'</td>');
-			$('#tbody').append('<td style="">'+item['place']+'</td>');
-			$('#tbody').append('<td style="text-align: center;">'+item['Stick_user']+'</td>');
+			$('#tbody').append('<td style="font-family:"Noto Sans TC";">'+item['name']+'</td>');
+			$('#tbody').append('<td style="font-family:"Noto Sans TC";">'+item['place']+'</td>');
+			$('#tbody').append('<td style="font-family:"Noto Sans TC"; text-align: center;">'+item['Stick_user']+'</td>');
 			$('#tbody').append(confirm+'</td>');
 			$('#tbody').append('<td style="text-align: center;"  onclick="PopNoteModal('+info_forModal+');"><i class="fa fa-edit"></i></td>');
 			$('#tbody').append('</tr>');
