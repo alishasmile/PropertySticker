@@ -28,14 +28,14 @@
 								<div class="pull-right search" style="width: 25vw; max-width: 150px;">
 									<input id="searchbar" class="form-control" placeholder="搜尋" type="text" oninput="searching();" style="height: auto; font-family:'Noto Sans TC';">
 								</div>
-								<div class="columns columns-right pull-right"  >
+								<div class="columns columns-right pull-right" style="line-height: 22.5px;"  >
 									<!--
 									<button class="btn btn-default" name="toggle" title="Toggle" type="button">
 										<i class="glyphicon fa fa-th-list"></i>
 									</button>
 									-->
 									<div class="keep-open btn-group" title="搜尋選項" id="searchBar" >
-										<div class="dropdown" style="line-height: 22.5px;">
+										<div class="dropdown" >
 											<button class="btn btn-secondary dropdown-toggle" type="button" id="searchBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family:'Noto Sans TC';">
 												依編號
 											</button>
