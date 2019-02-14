@@ -57,7 +57,7 @@
 								<div class="col">
 									<div class="row align-items-center">
 										<label class="switch" style="margin-left: 30px;margin-bottom: 0px;">
-										  <input type="checkbox" checked="checked"  onchange="ShowStickedChange();">
+										  <input type="checkbox" onchange="ShowStickedChange();">
 
 										  <span class="slider round"></span>
 										</label>
