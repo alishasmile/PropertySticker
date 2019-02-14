@@ -19,7 +19,7 @@
 								<div class="bars pull-left">
 									<div class="toolbar">
 
-										<button class="btn btn-default" id="Logout" onclick="logout();" onmouseover="mouseOver()" onmouseout="mouseOut()"  style="font-family:'Noto Sans TC';">
+										<button class="btn btn-default" id="Logout" onclick="logout();" onmouseover="mouseOver();" onmouseout="mouseOut();"  style="font-family:'Noto Sans TC';">
 											{{ Session::get('user')}}
 										</button>
 									</div>
@@ -57,7 +57,7 @@
 								<div class="col">
 									<div class="row align-items-center">
 										<label class="switch" style="margin-left: 30px;margin-bottom: 0px;">
-										  <input type="checkbox">
+										  <input type="checkbox" checked="checked"  onchange="ShowStickedChange();">
 										  <span class="slider round"></span>
 										</label>
 										&nbsp
@@ -344,8 +344,10 @@
 	
 	//中國人模式
 	var ChineseMode = 0;
+	var ShowSticked = 1;
+	var searchMode;
 	var currentPage;
-
+	
 	function chineseMode(){
 		if(ChineseMode == 1){
 			ChineseMode = 0;
@@ -356,7 +358,19 @@
 			clickPage(currentPage);
 		}
 	}
+	
+	function ShowStickedChange(){
+		if(ShowSticked == 1){
+			ShowSticked = 0;
+		}
+		else{
+			ShowSticked = 1;
+		}
+		searching();
+	}
 
+	
+	
 	$( document ).ready(function() {
 		searchMode = 1;
 		dataSize = Number("{{$DataSize}}");
@@ -523,6 +537,7 @@
 						},
 						data: {
 							type: searchMode,
+							showsticked :ShowSticked,
 							key: $('#searchbar').val()
 						},
 						error: function(xhr) {
@@ -532,17 +547,21 @@
 							dataSize = response['size'];
 							clickPage(1);
 							//console.log(response['size']);
+							
+							var confirmstr ="";
+							if(ShowSticked==0)confirmstr="且未被確認";
+							
 							if(searchMode == 1){
-								$('#searchInfo').text("ID和 '"+$('#searchbar').val()+"' 有關的財產共有 "+response['size']+" 筆");
+								$('#searchInfo').text("ID和 '"+$('#searchbar').val()+"' 有關"+confirmstr+"的財產共有 "+response['size']+" 筆");
 							}
 							else if(searchMode ==2){
-								$('#searchInfo').text("位置在 '"+$('#searchbar').val()+"' 的財產共有 "+response['size']+" 筆");
+								$('#searchInfo').text("位置在 '"+$('#searchbar').val()+"' "+confirmstr+"的財產共有 "+response['size']+" 筆");
 							}
 							else if(searchMode ==3){
-								$('#searchInfo').text("名稱和 '"+$('#searchbar').val()+"' 有關的財產共有 "+response['size']+" 筆");
+								$('#searchInfo').text("名稱和 '"+$('#searchbar').val()+"' 有關"+confirmstr+"的財產共有 "+response['size']+" 筆");
 							}
 							else if(searchMode ==4){
-								$('#searchInfo').text($('#searchbar').val()+" 確認過的的財產共有 "+response['size']+" 筆");
+								$('#searchInfo').text($('#searchbar').val()+" 確認過"+confirmstr+"的財產共有 "+response['size']+" 筆");
 							}
 						}
 					});
@@ -551,9 +570,32 @@
 		else{
 			clearTimeout(delayTimer);
 			delayTimer = setTimeout(function() {
-				dataSize = Number("{{$DataSize}}");
-				clickPage(1);
-				$('#searchInfo').text("全部共有 {{$DataSize}} 筆財產");
+				if(ShowSticked == 1){
+					dataSize = Number("{{$DataSize}}");
+					clickPage(1);
+					$('#searchInfo').text("全部共有 {{$DataSize}} 筆財產");
+				}
+				else{
+					$.ajax({
+						url: "/getSearchSize",
+						type: 'POST',
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+						},
+						data: {
+							type: 0,
+							showsticked :0,
+						},
+						error: function(xhr) {
+							alert('搜尋請求錯誤，請重新登入再試');
+						},
+						success: function(response) {
+							dataSize = response['size'];
+							clickPage(1);
+							$('#searchInfo').text("全部共有 "+dataSize+" 筆財產尚未被確認");
+						}
+					});
+				}
 				//console.log('null search');
 			}, 500);
 		}
@@ -767,6 +809,7 @@
 					page: $page,
 					pageSize: $pageSize,
 					key: $('#searchbar').val(),
+					showsticked: ShowSticked,
 					type: searchMode
 				},
 				error: function(xhr) {
@@ -786,7 +829,8 @@
 				},
 				data: {
 					page: $page,
-					pageSize: $pageSize
+					pageSize: $pageSize,
+					showsticked: ShowSticked,
 				},
 				error: function(xhr) {
 					alert('頁面請求錯誤，請重新登入再試');

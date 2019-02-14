@@ -31,25 +31,37 @@ class SearchController extends Controller
 		$page = $request->input('page');
 		$keyword = $request->input('key');
 		$mode = $request->input('type');
+		$showsticked = $request->input('showsticked');
 		
 		if($keyword==NULL){
-			$items = \App\datum::skip($pageSize*($page-1))->take($pageSize)->get();
+			if($showsticked==1){
+				$items = \App\datum::skip($pageSize*($page-1))->take($pageSize)->get();
+			}else{
+				$items = \App\datum::where('confirmed',0)->skip($pageSize*($page-1))->take($pageSize)->get();
+			}
+			$result['items'] = $items;
 		}
 		else{
 			if($mode==1){
-				$items = \App\datum::where('property_id', 'LIKE', '%'.$keyword.'%')->skip($pageSize*($page-1))->take($pageSize)->get();
+				$items = \App\datum::where('property_id', 'LIKE', '%'.$keyword.'%');
 			}
 			else if($mode==2){
-				$items = \App\datum::where('place', 'LIKE', '%'.$keyword.'%')->skip($pageSize*($page-1))->take($pageSize)->get();
+				$items = \App\datum::where('place', 'LIKE', '%'.$keyword.'%');
 			}
 			else if($mode==3){
-				$items = \App\datum::where('name', 'LIKE', '%'.$keyword.'%')->skip($pageSize*($page-1))->take($pageSize)->get();
+				$items = \App\datum::where('name', 'LIKE', '%'.$keyword.'%');
 			}
 			else if($mode==4){
-				$items = \App\datum::where('Stick_user', 'LIKE', '%'.$keyword.'%')->skip($pageSize*($page-1))->take($pageSize)->get();
+				$items = \App\datum::where('Stick_user', 'LIKE', '%'.$keyword.'%');
+			}
+			
+			if($showsticked==1){
+				$result['items'] = $items->skip($pageSize*($page-1))->take($pageSize)->get();
+				
+			}else{
+				$result['items'] = $items->where('confirmed',0)->skip($pageSize*($page-1))->take($pageSize)->get();
 			}
 		}
-		$result['items'] = $items;
 		return response()->json($result);
     }
 	
@@ -58,20 +70,30 @@ class SearchController extends Controller
 		$result = array();
 		$keyword = $request->input('key');
 		$mode = $request->input('type');
+		$showsticked = $request->input('showsticked');
+		
 		if($mode == 1){
-			$size = \App\datum::where('property_id', 'LIKE', '%'.$keyword.'%')->count();
+			$size = \App\datum::where('property_id', 'LIKE', '%'.$keyword.'%');
 		}
 		else if($mode == 2){
-			$size = \App\datum::where('place', 'LIKE', '%'.$keyword.'%')->count();
+			$size = \App\datum::where('place', 'LIKE', '%'.$keyword.'%');
 		}
 		else if($mode == 3){
-			$size = \App\datum::where('name', 'LIKE', '%'.$keyword.'%')->count();
+			$size = \App\datum::where('name', 'LIKE', '%'.$keyword.'%');
 		}
 		else if($mode == 4){
-			$size = \App\datum::where('Stick_user', 'LIKE', '%'.$keyword.'%')->count();
+			$size = \App\datum::where('Stick_user', 'LIKE', '%'.$keyword.'%');
+		}
+		else if($mode == 0){
+			$size = \App\datum::get();
 		}
 		
-		$result['size'] = $size;
+		if($showsticked == 1){//showall
+			$result['size'] = $size->count();
+		}
+		else{//only show the unchecked property
+			$result['size'] = $size->where('confirmed',0)->count();
+		}
 		return response()->json($result);
 	}
 }
