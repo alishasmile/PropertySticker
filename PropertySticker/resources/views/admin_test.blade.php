@@ -412,7 +412,11 @@
 			  	if(response['has_note_or_not'] == 'yes'){
 			  		$('#no_note').css("display","none");
 			  		for(var i in response['notes']){
-			  			$('#note_list').append(response['notes'][i]['user'] + ' : '+ response['notes'][i]['content']+'<hr>');
+			  			var str = response['notes'][i]['content'];
+	      				str = str.replace(/\n/g,"<br />");
+			  			$('#note_list').append("<div class = 'row'><div class = 'col-2'>"+response['notes'][i]['user'] + ' : </div><div class = "col-10">'+ str +'</div></div>');
+			  			$('#note_list').append("<hr>");
+			  			
 			  		}
 			  	}
 			  	else{
@@ -450,7 +454,10 @@
 	    success: function(response) {
 	      if(response['status'] == 'success'){
 	      	$('#no_note').css("display","none");
-	      	$('#note_list').append(response['user'] + ' : '+ response['note']+'<hr>');
+	      	var str = response['note'];
+	      	str = str.replace(/\n/g,"<br />");
+	      	$('#note_list').append("<div class = 'row'><div class = 'col-2'>"+response['user'] + ' : </div><div class = "col-10">'+ str +'</div></div>');
+			  			$('#note_list').append("<hr>");
 	      	$('#message_from_note').val("");
 	      	$('#note_list2').html("");
 	      }
