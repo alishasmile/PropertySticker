@@ -168,47 +168,47 @@
 									<table></table>
 								</div>
 								<div class="fixed-table-body">
-									<table class="table table-hover table-striped" id="fresh-table" style="margin-top: 0px;">
+									<table class="table table-hover table-striped" id="fresh-table" style="margin-top: 0px; ">
 										<thead style="display: table-header-group;">
 											<tr>
 												<th data-field="id" style="text-align: center;">
-													<div class="th-inner">
+													<div class="th-inner" style="font-size: 1.25em;">
 														ID
 													</div>
 													<div class="fht-cell"></div>
 												</th>
 												<th data-field="property_id" style="">
-													<div class="th-inner">
+													<div class="th-inner" style="font-size: 1.25em;">
 														財產編號
 													</div>
 													<div class="fht-cell"></div>
 												</th>
 												<th data-field="name" style="">
-													<div class="th-inner">
+													<div class="th-inner" style="font-size: 1.25em;">
 														財產名稱
 													</div>
 													<div class="fht-cell"></div>
 												</th>
 												<th data-field="place" style="">
-													<div class="th-inner">
+													<div class="th-inner" style="font-size: 1.25em;">
 														財產位置
 													</div>
 													<div class="fht-cell"></div>
 												</th>
 												<th data-field="Stick_user" style="">
-													<div class="th-inner">
+													<div class="th-inner" style="font-size: 1.25em;">
 														確認人
 													</div>
 													<div class="fht-cell"></div>
 												</th>
 												<th data-field="Confirmed" style="">
-													<div class="th-inner">
+													<div class="th-inner" style="font-size: 1.25em;">
 														已確認
 													</div>
 													<div class="fht-cell"></div>
 												</th>
 												<th data-field="Note" style="">
-													<div class="th-inner">
+													<div class="th-inner" style="font-size: 1.25em;">
 														註記
 													</div>
 													<div class="fht-cell"></div>
