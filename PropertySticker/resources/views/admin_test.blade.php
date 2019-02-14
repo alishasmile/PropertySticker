@@ -10,7 +10,7 @@
 <body>
 	@section('body')
 	<div class="wrapper">
-		<div class="container">
+		<div class="container" style="max-width: none;">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="fresh-table full-color-orange">
@@ -420,7 +420,7 @@
 			  	}
 			  }
 			  else{
-			  	swal("請重新登入", "您逾時登出", "error").then(
+			  	swal("請重新登入", "登入時效已過", "error").then(
 	                function (result) {
 	                	document.location.href="{{URL::asset('/logout')}}";
 	            });
@@ -456,7 +456,7 @@
 	      }
 	      else{
 	      	if(response['error type'] == 1){
-	      		swal("請重新登入", "您逾時登出", "error").then(
+	      		swal("請重新登入", "登入時效已過", "error").then(
 	                function (result) {
 	                	document.location.href="{{URL::asset('/logout')}}";
 	            });
@@ -491,7 +491,7 @@
 	      	$('#ModalCheck').modal('hide');
 	      }
 	      else{
-		    swal("請重新登入", "您逾時登出", "error").then(
+		    swal("請重新登入", "登入時效已過", "error").then(
                 function (result) {
                 	document.location.href="{{URL::asset('/logout')}}";
             });
