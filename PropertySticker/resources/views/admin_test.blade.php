@@ -118,12 +118,12 @@
 								        
 								      </div>
 								      <div class="form-group">
-								        <label for="message-text" class="col-form-label">Message:</label>
-								        <textarea class="form-control" id="message_from_check"></textarea>
+								        <label for="message-text" class="col-form-label" style="margin-left: 12px;">註記:</label>
+								        <textarea class="form-control" id="message_from_check" style="border-color: rgba(23, 23, 23, 0.3); color: #232323; margin: 10px 10px 10px 12px; width: 95%;"></textarea>
 								      </div>
 								      <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">Close</button>
-								        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_check">Save changes</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">取消</button>
+								        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_check">送出</button>
 								      </div>
 								    </div>
 								  </div>
@@ -145,90 +145,25 @@
 								      <div class="modal-body" id="note_list">
 								        
 								      </div>
+								      <div style="text-align: center; display: block;" id="no_note">
+									      no note
+									      <hr>
+								  	  </div>
 								      <div class="modal-body" id="note_list2">
 								        
 								      </div>
 								      <div class="form-group">
-								        <label for="message-text" class="col-form-label">Message:</label>
-								        <textarea class="form-control" id="message_from_note"></textarea>
+								        <label for="message-text" class="col-form-label" style="margin-left: 12px;">註記:</label>
+								        <textarea class="form-control" id="message_from_note" style="border-color: rgba(23, 23, 23, 0.3); color: #232323; margin: 10px 10px 10px 12px; width: 95%;"></textarea>
 								      </div>
 								      <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">Close</button>
-								        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_note">Save changes</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">取消</button>
+								        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_note">送出</button>
 								      </div>
 								    </div>
 								  </div>
 								</div>
 
-
-
-<input type="button" value="success" id="submit_success" />
-
-<script type="text/javascript">
-    $(function () {
-        $("#submit_success").click(function () {
-            //alert範例
-            swal("已寄出新密碼", "請至您的信箱查收新的登入密碼", "success");
-
-        });
-    });
-</script>
-
-<input type="button" value="failed" id="submit_failed"/>
-
-<script type="text/javascript">
-    $(function () {
-        $("#submit_failed").click(function () {
-            //alert範例
-            swal("已寄出新密碼", "請至您的信箱查收新的登入密碼", "error");
-
-
-        });
-    });
-</script>
-
-
-<input type="button" value="click me" />
-
-    
-    <script type="text/javascript">
-        //自訂預設值
-        swal.setDefaults({
-            confirmButtonText: "確定",
-            cancelButtonText: "取消"
-        });
-        //swal.resetDefaults();//清空自訂預設值
-
-
-        $(function () {
-            $("input:button").click(function () {
-                //confirm dialog範例
-                swal({
-                    title: "確定刪除？",
-                    html: "按下確定後資料會永久刪除",
-                    type: "question",
-                    showCancelButton: true//顯示取消按鈕
-                }).then(
-                    function (result) {
-                        if (result.value) {
-                            //使用者按下「確定」要做的事
-                            swal("完成!", "資料已經刪除", "success");
-                        } else if (result.dismiss === "cancel")
-                        {
-                             //使用者按下「取消」要做的事
-                            swal("取消", "資料未被刪除", "error");
-                        }//end else  
-                    });//end then 
-            });
-        });
-    </script>
-
-<!-- Modal Success -->
-
-
-<!-- Modal Failed -->
-
-	
 								<div class="fixed-table-header" style="display: none;">
 									<table></table>
 								</div>
@@ -454,6 +389,7 @@
 
 	function PopNoteModal(item) {
 		this.item = Array.from(item.split(','));
+		$('#note_list2').html("");
 		$('#pro_id_and_name_note').html("");
 		$('#message_from_note').val("");
 		$('#note_list').html("");
@@ -468,26 +404,30 @@
 			  id: this.item[0],
 			},
 			error: function(xhr) {
-			  alert('Ajax request 發生錯誤');
+			  swal("錯誤", "ajax請求錯誤", "warning");
 			},
 			success: function(response) {
 			  if(response['status'] == 'success'){
 			  	$('#note_list').append('<hr>');
 			  	if(response['has_note_or_not'] == 'yes'){
+			  		$('#no_note').css("display","none");
 			  		for(var i in response['notes']){
 			  			$('#note_list').append(response['notes'][i]['user'] + ' : '+ response['notes'][i]['content']+'<hr>');
 			  		}
 			  	}
 			  	else{
-			  		$('#note_list').append('<div style="text-align: center;">no note</div><hr>');
+			  		$('#no_note').css("display","");
 			  	}
 			  }
 			  else{
-			  	//document.location.href="{{URL::asset('/logout')}}";
-			  	//alert logout
+			  	swal("請重新登入", "您逾時登出", "error").then(
+	                function (result) {
+	                	document.location.href="{{URL::asset('/logout')}}";
+	            });
 			  }
 			}
 		});
+
 		$('#save_note').attr("onclick","sendNoteInfo("+this.item[0]+");");
 		$('#ModalNote').modal('show');
 	}
@@ -505,19 +445,21 @@
 	      note: $('#message_from_note').val(),
 	    },
 	    error: function(xhr) {
-	      alert('Ajax request 發生錯誤');
+	      swal("錯誤", "ajax請求錯誤", "warning");
 	    },
 	    success: function(response) {
 	      if(response['status'] == 'success'){
-	      	//alert success
+	      	$('#no_note').css("display","none");
 	      	$('#note_list').append(response['user'] + ' : '+ response['note']+'<hr>');
 	      	$('#message_from_note').val("");
 	      	$('#note_list2').html("");
 	      }
 	      else{
 	      	if(response['error type'] == 1){
-	      		//document.location.href="{{URL::asset('/logout')}}";
-	      		//alert logout
+	      		swal("請重新登入", "您逾時登出", "error").then(
+	                function (result) {
+	                	document.location.href="{{URL::asset('/logout')}}";
+	            });
 	      	}
 	      	else{
 	      		$('#note_list2').html("");
@@ -540,16 +482,19 @@
 	      note: $('#message_from_check').val(),
 	    },
 	    error: function(xhr) {
-	      alert('Ajax request 發生錯誤');
+	      swal("錯誤", "ajax請求錯誤", "warning");
 	    },
 	    success: function(response) {
 	      if(response['status'] == 'success'){
+	      	swal("資料已送出", "", "success");
 	      	clickPage(currentPage);
 	      	$('#ModalCheck').modal('hide');
 	      }
 	      else{
-	      	//document.location.href="{{URL::asset('/logout')}}";
-	      	//alert logout
+		    swal("請重新登入", "您逾時登出", "error").then(
+                function (result) {
+                	document.location.href="{{URL::asset('/logout')}}";
+            });
 	      }
 	    }
 	  });
@@ -605,7 +550,7 @@
 							key: $('#searchbar').val()
 						},
 						error: function(xhr) {
-							alert('搜尋請求錯誤，請重新登入再試');
+							swal("搜尋請求錯誤", "請重新登入再試", "warning");
 						},
 						success: function(response) {
 							dataSize = response['size'];
@@ -651,7 +596,7 @@
 							showsticked :0,
 						},
 						error: function(xhr) {
-							alert('搜尋請求錯誤，請重新登入再試');
+							swal("搜尋請求錯誤","請重新登入再試","warning");
 						},
 						success: function(response) {
 							dataSize = response['size'];
@@ -877,7 +822,7 @@
 					type: searchMode
 				},
 				error: function(xhr) {
-					alert('頁面請求錯誤，請重新登入再試');
+					swal("搜尋請求錯誤","請重新登入再試","warning");
 				},
 				success: function(response) {
 					updateTable(response);
@@ -897,7 +842,7 @@
 					showsticked: ShowSticked,
 				},
 				error: function(xhr) {
-					alert('頁面請求錯誤，請重新登入再試');
+					swal("搜尋請求錯誤","請重新登入再試","warning");
 				},
 				success: function(response) {
 					updateTable(response);
