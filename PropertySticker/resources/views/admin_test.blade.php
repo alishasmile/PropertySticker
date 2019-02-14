@@ -876,9 +876,9 @@
 			$('#tbody').append('<tr data-index='+i.toString()+'>');
 			$('#tbody').append('<td style="text-align: center;">'+item['id'].toString()+'</td>');
 			$('#tbody').append('<td style="">'+item['property_id']+'</td>');
-			$('#tbody').append('<td style="font-family:"Noto Sans TC";">'+item['name']+'</td>');
-			$('#tbody').append('<td style="font-family:"Noto Sans TC";">'+item['place']+'</td>');
-			$('#tbody').append('<td style="font-family:"Noto Sans TC"; text-align: center;">'+item['Stick_user']+'</td>');
+			$('#tbody').append('<td style="font-family: Noto Sans TC;">'+item['name']+'</td>');
+			$('#tbody').append('<td style="font-family: Noto Sans TC;">'+item['place']+'</td>');
+			$('#tbody').append('<td style="font-family: Noto Sans TC; text-align: center;">'+item['Stick_user']+'</td>');
 			$('#tbody').append(confirm+'</td>');
 			$('#tbody').append('<td style="text-align: center;"  onclick="PopNoteModal('+info_forModal+');"><i class="fa fa-edit"></i></td>');
 			$('#tbody').append('</tr>');
