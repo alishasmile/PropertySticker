@@ -57,12 +57,12 @@
 								<div class="col">
 									<div class="row align-items-center">
 										<label class="switch" style="margin-left: 30px;margin-bottom: 0px;">
-										  <input type="checkbox">
+										  <input type="checkbox" onchange="allMode();">
 										  <span class="slider round"></span>
 										</label>
 										&nbsp
 										<p style="color: #FFF;  margin-bottom: 0px;font-size:1em; font-family:'Noto Sans TC';">
-											顯示已貼
+											只顯示未貼
 										</p>
 										<div class="row align-items-center" id="web_switch" style="display:none;">
 											&nbsp&nbsp
@@ -103,66 +103,131 @@
 							</div>
 							<div class="fixed-table-container" style="padding-bottom: 0px;">
 
+								<!-- Modal Check-->
+								<div class="modal fade" id="ModalCheck" tabindex="-1" role="dialog" aria-labelledby="pro_id" aria-hidden="true">
+								  <div class="modal-dialog modal-dialog-centered" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="pro_id">真的貼過了嗎</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border-color: #AAAAAA; color: #AAAAAA;">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body" id="pro_id_and_name">
+								        
+								      </div>
+								      <div class="form-group">
+								        <label for="message-text" class="col-form-label">Message:</label>
+								        <textarea class="form-control" id="message_from_check"></textarea>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">Close</button>
+								        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_check">Save changes</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
 
-<!-- Modal -->
-<div class="modal fade" id="ModalNote" tabindex="-1" role="dialog" aria-labelledby="pro_id_note" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="pro_id_note">想註記什麼呢</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border-color: #AAAAAA; color: #AAAAAA;">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="pro_id_and_name_note">
-        
-      </div>
-      <div class="modal-body" id="note_list">
-        
-      </div>
-      <div class="modal-body" id="note_list2">
-        
-      </div>
-      <div class="form-group">
-        <label for="message-text" class="col-form-label">Message:</label>
-        <textarea class="form-control" id="message_from_note"></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">Close</button>
-        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_note">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="ModalCheck" tabindex="-1" role="dialog" aria-labelledby="pro_id" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="pro_id">真的貼過了嗎</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border-color: #AAAAAA; color: #AAAAAA;">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="pro_id_and_name">
-        
-      </div>
-      <div class="form-group">
-        <label for="message-text" class="col-form-label">Message:</label>
-        <textarea class="form-control" id="message_from_check"></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">Close</button>
-        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_check">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+								<!-- Modal Note-->
+								<div class="modal fade" id="ModalNote" tabindex="-1" role="dialog" aria-labelledby="pro_id_note" aria-hidden="true">
+								  <div class="modal-dialog modal-dialog-centered" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="pro_id_note">想註記什麼呢</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border-color: #AAAAAA; color: #AAAAAA;">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body" id="pro_id_and_name_note">
+								        
+								      </div>
+								      <div class="modal-body" id="note_list">
+								        
+								      </div>
+								      <div class="modal-body" id="note_list2">
+								        
+								      </div>
+								      <div class="form-group">
+								        <label for="message-text" class="col-form-label">Message:</label>
+								        <textarea class="form-control" id="message_from_note"></textarea>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-color: #AAAAAA; color: #AAAAAA;">Close</button>
+								        <button type="button" class="btn btn-primary" style="border-color: #3472F7; color: #3472F7;" id="save_note">Save changes</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
 
 
 
+<input type="button" value="success" id="submit_success" />
+
+<script type="text/javascript">
+    $(function () {
+        $("#submit_success").click(function () {
+            //alert範例
+            swal("已寄出新密碼", "請至您的信箱查收新的登入密碼", "success");
+
+        });
+    });
+</script>
+
+<input type="button" value="failed" id="submit_failed"/>
+
+<script type="text/javascript">
+    $(function () {
+        $("#submit_failed").click(function () {
+            //alert範例
+            swal("已寄出新密碼", "請至您的信箱查收新的登入密碼", "error");
+
+
+        });
+    });
+</script>
+
+
+<input type="button" value="click me" />
+
+    
+    <script type="text/javascript">
+        //自訂預設值
+        swal.setDefaults({
+            confirmButtonText: "確定",
+            cancelButtonText: "取消"
+        });
+        //swal.resetDefaults();//清空自訂預設值
+
+
+        $(function () {
+            $("input:button").click(function () {
+                //confirm dialog範例
+                swal({
+                    title: "確定刪除？",
+                    html: "按下確定後資料會永久刪除",
+                    type: "question",
+                    showCancelButton: true//顯示取消按鈕
+                }).then(
+                    function (result) {
+                        if (result.value) {
+                            //使用者按下「確定」要做的事
+                            swal("完成!", "資料已經刪除", "success");
+                        } else if (result.dismiss === "cancel")
+                        {
+                             //使用者按下「取消」要做的事
+                            swal("取消", "資料未被刪除", "error");
+                        }//end else  
+                    });//end then 
+            });
+        });
+    </script>
+
+<!-- Modal Success -->
+
+
+<!-- Modal Failed -->
+
+	
 								<div class="fixed-table-header" style="display: none;">
 									<table></table>
 								</div>
@@ -344,6 +409,7 @@
 	
 	//中國人模式
 	var ChineseMode = 0;
+	var AllMode = 1;
 	var currentPage;
 
 	function chineseMode(){
@@ -353,6 +419,17 @@
 		}
 		else{
 			ChineseMode = 1;
+			clickPage(currentPage);
+		}
+	}
+
+	function allMode(){
+		if(AllMode == 0){
+			AllMode = 1;
+			clickPage(currentPage);
+		}
+		else{
+			AllMode = 0;
 			clickPage(currentPage);
 		}
 	}
@@ -806,8 +883,12 @@
 			var info_forModal = "'"+Object.values(item)+"'";
 			var confirm;
 
-			if(item['confirmed'] == 0){ confirm = '<td onclick="PopCheckModal('+info_forModal+');" style="text-align: center;"><i class="fa fa-remove"></i>'; }
-			else{ confirm = '<td style="text-align: center;"><i class="fa fa-heart"></i>';}
+			if(item['confirmed'] == 0){ 
+				confirm = '<td onclick="PopCheckModal('+info_forModal+');" style="text-align: center;"><i class="fa fa-remove"></i>';
+			}
+			else{ 
+				confirm = '<td style="text-align: center;"><i class="fa fa-heart"></i>';
+			}
 			
 			//中國人模式
 			if(ChineseMode == 1 ) {
@@ -815,17 +896,30 @@
 				item['place'] = NumToChinese(item['place']);
 				item['name'] = NumToChinese(item['name']);
 			}
+
+			//全部模式
+			var all = 0;
+			if( AllMode == 0 ) {
+				if(item['confirmed'] == 1){
+					all = 1;
+				}
+			}
+			else{
+				all = 0;
+			}
 			
-			$('#tbody').append('<tr data-index='+i.toString()+'>');
-			$('#tbody').append('<td style="text-align: center;">'+item['id'].toString()+'</td>');
-			$('#tbody').append('<td style="">'+item['property_id']+'</td>');
-			$('#tbody').append('<td style="">'+item['name']+'</td>');
-			$('#tbody').append('<td style="">'+item['place']+'</td>');
-			$('#tbody').append('<td style="text-align: center;">'+item['Stick_user']+'</td>');
-			$('#tbody').append(confirm+'</td>');
-			$('#tbody').append('<td style="text-align: center;"  onclick="PopNoteModal('+info_forModal+');"><i class="fa fa-edit"></i></td>');
-			$('#tbody').append('</tr>');
-			//
+			if(all == 0){
+				$('#tbody').append('<tr data-index='+i.toString()+'>');
+				$('#tbody').append('<td style="text-align: center;">'+item['id'].toString()+'</td>');
+				$('#tbody').append('<td style="">'+item['property_id']+'</td>');
+				$('#tbody').append('<td style="">'+item['name']+'</td>');
+				$('#tbody').append('<td style="">'+item['place']+'</td>');
+				$('#tbody').append('<td style="text-align: center;">'+item['Stick_user']+'</td>');
+				$('#tbody').append(confirm+'</td>');
+				$('#tbody').append('<td style="text-align: center;"  onclick="PopNoteModal('+info_forModal+');"><i class="fa fa-edit"></i></td>');
+				$('#tbody').append('</tr>');
+			}
+			
 		}
 		$("#loading").css("display","none");
 	}

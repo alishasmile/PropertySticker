@@ -12,6 +12,8 @@
 		<script type="text/javascript" src="{{URL::asset('js/jquery-1.11.2.min.js')}}"></script>
 	    <link href="{{URL::asset('css/bootstrap.css')}}" rel="stylesheet" />
 	    <link href=”css/bootstrap-switch/bootstrap-switch.css” rel=”stylesheet”>
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script>
 
 	    <link href="{{URL::asset('css/style.css')}}" rel="stylesheet" />
 		
