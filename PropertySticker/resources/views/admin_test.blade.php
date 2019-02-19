@@ -414,7 +414,7 @@
 			  		for(var i in response['notes']){
 			  			var str = response['notes'][i]['content'];
 	      				str = str.replace(/\n/g,"<br />");
-			  			$('#note_list').append("<div class = 'row'><div class = 'col-2'>"+response['notes'][i]['user'] + ' : </div><div class = "col-10">'+ str +'</div></div>');
+			  			$('#note_list').append("<div class = 'row'><div class = 'col-2'>"+response['notes'][i]['user'] + ' : </div><div class = "col-10" style="white-space: pre-wrap;word-wrap: break-word;">'+ str +'</div></div>');
 			  			$('#note_list').append("<hr>");
 			  			
 			  		}
