@@ -456,7 +456,7 @@
 	      	$('#no_note').css("display","none");
 	      	var str = response['note'];
 	      	str = str.replace(/\n/g,"<br />");
-	      	$('#note_list').append("<div class = 'row'><div class = 'col-2'>"+response['user'] + ' : </div><div class = "col-10">'+ str +'</div></div>');
+	      	$('#note_list').append("<div class = 'row'><div class = 'col-2'>"+response['user'] + ' : </div><div class = "col-10" style="white-space: pre-wrap;word-wrap: break-word;">'+ str +'</div></div>');
 			  			$('#note_list').append("<hr>");
 	      	$('#message_from_note').val("");
 	      	$('#note_list2').html("");
