@@ -62,5 +62,6 @@ Route::post('/getSearchSize','SearchController@getSearchSize');//how many result
 //Route::post('/getsearch', 'SearchController@getsearch');//用ajax
 
 
+Route::post('/upload',['as'=>'catagory_add','uses'=>'UploadController@upload_data']);
 
-
+Route::post('/selc_files','UploadController@storage_files');

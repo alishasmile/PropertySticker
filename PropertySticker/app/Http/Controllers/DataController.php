@@ -12,7 +12,7 @@ class DataController extends Controller
 
 		\App\datum::query()->delete();
 
-		$filePath = 'storage/'.iconv('UTF-8', 'GBK', 'PropertyList').'.xlsx';
+		$filePath = 'storage/app/excel'.iconv('UTF-8', 'GBK', 'PropertyList').'.xlsx';
 		
 		Excel::load($filePath, function($reader) {
 			$data = $reader->all();
