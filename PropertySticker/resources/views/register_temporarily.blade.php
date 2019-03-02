@@ -71,10 +71,10 @@
 	      token: $('#pw').val()
 	    },
 	    error: function(xhr) {
-	      alert('Ajax request 發生錯誤');
+	      swal("錯誤", "ajax請求錯誤", "warning");
 	    },
 	    success: function(response) {
-	      alert('create successfully');
+	      swal("資料已送出", "", "success");
 	      $('#pw').val('');
 	      $('#userr').val('');
 	    }
@@ -84,39 +84,33 @@
 
 	$("#upload").click(function(){
 		$.ajax({
-	      url:'{{URL::asset('/upload')}}',
-	      headers: {
-	          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-	      },
-	      data:new FormData($("#upload_form")[0]),
-	      dataType:'json',
-	      async:false,
-	      type:'post',
-	      processData: false,
-	      contentType: false,
-	      success:function(response){
-	        console.log(response);
-	      },
-	    });
-	 });
-
-	$("#selc").click(function(){
-		$.ajax({
-	      	url:'{{URL::asset('/selc_files')}}',
+	      	url:'{{URL::asset('/upload')}}',
 	      	headers: {
-				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        	  	'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
 	      	},
-		    dataType:'json',
-		    type:'post',
-		    error: function(xhr) {
-				alert('Ajax request 發生錯誤');
-		    },
-		    success: function(response) {
-		    	$('#selc').html("");
-				for(var i = 0 ; i < response.length ; i++){
-					$('#selc').append('<option>'+response[i]+'</option>');
-				}
-		    },
+	      	data:new FormData($("#upload_form")[0]),
+	      	dataType:'json',
+	      	async:false,
+	      	type:'post',
+	      	processData: false,
+	      	contentType: false,
+	      	error: function(xhr) {
+				swal("錯誤", "ajax請求錯誤", "warning");
+			},
+	      	success:function(response){
+	      		if(response['status'] == 'success'){
+	      			$('#selc').append('<option>'+response['filename']+'</option>');
+	      			swal("檔案新增成功", "請至下方選擇所需檔案", "success");
+	      		}
+	      		else{
+	      			if(response['error type'] == 1){
+	      				swal("上傳失敗", "請刷新網頁再上傳一次", "error")
+	      			}
+	      			else{
+	      				swal("上傳格式錯誤", "只允許上傳xls/xlsx", "error")
+	      			}
+	      		}
+	      	},
 	    });
 	 });
 
@@ -132,6 +126,23 @@
 		  
 	$(document).ready(function(){
 		$('.pass_show').append('<span class="ptxt">顯示</span>');  
+		$.ajax({
+	      	url:'{{URL::asset('/selc_files')}}',
+	      	headers: {
+				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+	      	},
+		    dataType:'json',
+		    type:'post',
+		    error: function(xhr) {
+				swal("錯誤", "ajax請求錯誤", "warning");
+		    },
+		    success: function(response) {
+		    	$('#selc').html("");
+				for(var i = 0 ; i < response.length ; i++){
+					$('#selc').append('<option>'+response[i]+'</option>');
+				}
+		    },
+	    });
 	});
 	  
 
