@@ -21,7 +21,7 @@ class UploadController extends Controller
 	    {
 			$result['status'] = 'failed';
 			$result['error type'] = 1;
-			$result['error message'] = 'upload failed';
+			$result['error message'] = '上傳失敗';
 	    }
 	   	else{
 	   		// 获取文件相关信息
@@ -40,20 +40,34 @@ class UploadController extends Controller
 
 		        $result['status'] = 'failed';
 				$result['error type'] = 2;
-				$result['error message'] = 'format incorrect';
+				$result['error message'] = '上傳格式錯誤';
 
 		    }
 		    else{
 		    	// 上传文件
 		    	$filename = $file->getClientOriginalName();
+		    	$b = 0;
+		    	$files = Storage::allFiles('excel');
+		    	for($i = 0 ; $i < sizeof($files) ; $i++) {
+		    		if($files[$i] == "excel/".$filename){ 
+		    			$b = 1;
+		    		}
+		    	}
 
-			    //路径
+		    	if($b == 1){
+		    		$result['status'] = 'failed';
+					$result['error type'] = 3;
+					$result['error message'] = '檔案已存在';
+		    	}
+		    	else{
+					//路径
+				    $path = $request->file('excel')->storeAs('excel', $filename);
 
-			    $path = $request->file('excel')->storeAs('excel', $filename);
-
-			    $result['status'] = 'success';
-				$result['path'] = $path;
-				$result['filename'] = $filename;
+				    $result['status'] = 'success';
+					$result['path'] = $path;
+					$result['filename'] = $filename;
+		    	}
+			    
 		    }
 	   	}
 

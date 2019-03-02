@@ -104,10 +104,13 @@
 	      		}
 	      		else{
 	      			if(response['error type'] == 1){
-	      				swal("上傳失敗", "請刷新網頁再上傳一次", "error")
+	      				swal("上傳失敗", "請刷新網頁再上傳一次", "error");
+	      			}
+	      			else if(response['error type'] == 3){
+	      				swal("此檔案已存在", "請更換檔案或者更換檔名", "error");
 	      			}
 	      			else{
-	      				swal("上傳格式錯誤", "只允許上傳xls/xlsx", "error")
+	      				swal("上傳格式錯誤", "只允許上傳xls/xlsx", "error");
 	      			}
 	      		}
 	      	},
