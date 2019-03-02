@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="fresh-table full-color-orange">
-						<div class="bootstrap-table" style="font-size: 1.5em;">
+						<div class="bootstrap-table" style="font-size: 1em;">
 							<div class="fixed-table-toolbar" style="padding-bottom: 0px;">
 								<div class="bars pull-left">
 									<div class="toolbar">
