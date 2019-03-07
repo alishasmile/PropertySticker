@@ -37,18 +37,23 @@
 						<div class="form-group">
 							<input type="file" name="excel" class="form-control" id="catagry_logo">
 						</div>
-						<button type="button" id="upload">Add</button>
+						<div class="group">
+							<input type="submit" class="button" id="upload" value="新增"  style="width: auto;">
+						</div>
 					</form>
+
 					<div class="hr"></div>
 
-
-<div class="form-group col-lg-6" >
-	<div class="group">
-		<label for="selc" class="label">選擇檔案：</label>
-	</div>
-	<select class="form-control" id="selc" >
-	</select>
-</div>
+					<div class="form-group" >
+						<div class="group">
+							<label for="selc" class="label">選擇檔案：</label>
+						</div>
+						<select class="form-control" id="selc" >
+						</select>
+					</div>
+					<div class="group">
+						<input type="submit" class="button pull-right" style="width: auto;" value="創建資料庫" >
+					</div>
 
 
 

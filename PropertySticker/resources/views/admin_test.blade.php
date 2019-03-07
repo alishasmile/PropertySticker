@@ -470,7 +470,7 @@
 	      	}
 	      	else{
 	      		$('#note_list2').html("");
-	      		$('#note_list2').append('打啥呢');
+	      		$('#note_list2').append('<p style="color:red;">打啥呢</p>');
 	      	}
 	      }
 	    }
