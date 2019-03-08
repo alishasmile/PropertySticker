@@ -35,10 +35,9 @@ Route::get('/register_temporarily', function () {
     return view('register_temporarily');
 });
 
-Route::get('/createData','DataController@createData');//createData
+Route::post('/createData','DataController@createData');//createData
 Route::post('/createMember', 'MemberController@createMember');//create member
 
-//Route::get('/test','ApiController@test');
 
 Route::prefix('api')->group(function () {
 
@@ -58,8 +57,6 @@ Route::post('/add_note_web', 'ApiController@addNote');//addNote web
 Route::post('/getpage', 'SearchController@getpage');//用ajax
 
 Route::post('/getSearchSize','SearchController@getSearchSize');//how many result
-
-//Route::post('/getsearch', 'SearchController@getsearch');//用ajax
 
 
 Route::post('/upload',['as'=>'catagory_add','uses'=>'UploadController@upload_data']);

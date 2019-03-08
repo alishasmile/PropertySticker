@@ -8,7 +8,7 @@
 
 @section('body')
 
-<body>
+<body style="background: url('/img/material-design-4k-2048x1152.jpg'); background-position: center; background-size: cover;">
 	<div class="row align-items-center justify-content-center">
 		<div class="login-wrap" style="margin-top: 10px;">
 	        <div class="login-html">

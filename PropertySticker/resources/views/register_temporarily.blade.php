@@ -2,14 +2,14 @@
 
 @section('title')
 
-  <title>PropertySticker_login</title>
+  <title>PropertySticker_register</title>
 
 
 @endsection
 
 @section('body')
 
-<body>
+<body style="background: url('/img/material-design-4k-2048x1152.jpg'); background-position: center; background-size: cover;">
 
 	<div class="login-wrap" style="margin-top: 10px;">
 		<div class="login-html">
@@ -35,10 +35,10 @@
 				<div class="for-pwd-htm">
 					<form enctype="multipart/form-data" id="upload_form" role="form" method="POST" action="" >
 						<div class="form-group">
-							<input type="file" name="excel" class="form-control" id="catagry_logo">
+							<input type="file" name="excel" class="form-control" id="catagry_logo" enctype="multipart/form-data">
 						</div>
 						<div class="group">
-							<input type="submit" class="button" id="upload" value="新增"  style="width: auto;">
+							<input class="button" id="upload" value="新增"  style="width: 68px;">
 						</div>
 					</form>
 
@@ -52,7 +52,7 @@
 						</select>
 					</div>
 					<div class="group">
-						<input type="submit" class="button pull-right" style="width: auto;" value="創建資料庫" >
+						<input class="button pull-right" id="create_data" style="width: 104px" value="創建資料庫" >
 					</div>
 
 
@@ -87,6 +87,30 @@
 	};
 
 
+	$("#create_data").click(function(){
+		$('#create_data').prop('disabled', true);
+		waitingDialog.show();//請耐心稍後再前往頁面瀏覽
+		$.ajax({
+		    url: '{{URL::asset('/createData')}}',
+		    type: 'POST',
+		    headers: {
+				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+	        },
+	        data: {
+	        	ff: $('#selc').val(),
+	        },
+		    error: function(xhr) {
+				swal("錯誤", "ajax請求錯誤", "warning");
+		    },
+		    success: function(response) {
+		    	waitingDialog.hide();
+		    	swal("資料創建成功", "謝謝您耐心的等候", "success");
+		    	$('#create_data').prop('disabled', false);
+		    }
+		});
+	  
+	});
+
 	$("#upload").click(function(){
 		$.ajax({
 	      	url:'{{URL::asset('/upload')}}',
@@ -104,7 +128,7 @@
 			},
 	      	success:function(response){
 	      		if(response['status'] == 'success'){
-	      			$('#selc').append('<option>'+response['filename']+'</option>');
+	      			$('#selc').append('<option value="'+response['filename']+'">excel/'+response['filename']+'</option>');
 	      			swal("檔案新增成功", "請至下方選擇所需檔案", "success");
 	      		}
 	      		else{
@@ -113,6 +137,9 @@
 	      			}
 	      			else if(response['error type'] == 3){
 	      				swal("此檔案已存在", "請更換檔案或者更換檔名", "error");
+	      			}
+	      			else if(response['error type'] == 4){
+	      				swal("請選擇上傳檔案", "您未選擇檔案", "warning");
 	      			}
 	      			else{
 	      				swal("上傳格式錯誤", "只允許上傳xls/xlsx", "error");
@@ -161,6 +188,74 @@
 	$(this).prev().attr('type', function(index, attr){return attr == 'password' ? 'text' : 'password'; }); 
 
 	});  
+
+
+
+
+
+
+	var waitingDialog = waitingDialog || (function ($) {
+	    'use strict';
+
+		// Creating modal dialog's DOM
+		var $dialog = $(
+			'<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">' +
+			'<div class="modal-dialog modal-m">' +
+			'<div class="modal-content">' +
+				'<div class="modal-header"><h3 style="margin:0;"></h3></div>' +
+				'<div class="modal-body">' +
+					'<div class="progress progress-striped active" style="margin-bottom:0;"><div class="progress-bar" style="width: 100%"></div></div>' +
+				'</div>' +
+			'</div></div></div>');
+
+		return {
+			/**
+			 * Opens our dialog
+			 * @param message Custom message
+			 * @param options Custom options:
+			 * 				  options.dialogSize - bootstrap postfix for dialog size, e.g. "sm", "m";
+			 * 				  options.progressType - bootstrap postfix for progress bar type, e.g. "success", "warning".
+			 */
+			show: function (message, options) {
+				// Assigning defaults
+				if (typeof options === 'undefined') {
+					options = {};
+				}
+				if (typeof message === 'undefined') {
+					message = 'Loading...';
+				}
+				var settings = $.extend({
+					dialogSize: 'm',
+					progressType: '',
+					onHide: null // This callback runs after the dialog was hidden
+				}, options);
+
+				// Configuring dialog
+				$dialog.find('.modal-dialog').attr('class', 'modal-dialog').addClass('modal-' + settings.dialogSize);
+				$dialog.find('.progress-bar').attr('class', 'progress-bar');
+				if (settings.progressType) {
+					$dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
+				}
+				$dialog.find('h3').text(message);
+				// Adding callbacks
+				if (typeof settings.onHide === 'function') {
+					$dialog.off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
+						settings.onHide.call($dialog);
+					});
+				}
+				// Opening dialog
+				$dialog.modal();
+			},
+			/**
+			 * Closes dialog
+			 */
+			hide: function () {
+				$dialog.modal('hide');
+			}
+		};
+
+	})(jQuery);
+
 	</script>
 
 </body>

@@ -8,11 +8,13 @@ use Maatwebsite\Excel\Facades\Excel;
 class DataController extends Controller
 {
 
-	public function createData(){
+	public function createData(Request $request){
 
 		\App\datum::query()->delete();
 
-		$filePath = 'storage/app/excel'.iconv('UTF-8', 'GBK', 'PropertyList').'.xlsx';
+		$filename = $request->input('ff');
+		$filePath = 'storage/app/'.iconv('UTF-8', 'GBK', $filename);
+		$result = array();
 		
 		Excel::load($filePath, function($reader) {
 			$data = $reader->all();
@@ -62,6 +64,9 @@ class DataController extends Controller
 			
 		});
 
+		$result['status'] = 'success';
+
+		return response()->json($result);
 	}
 
 }
