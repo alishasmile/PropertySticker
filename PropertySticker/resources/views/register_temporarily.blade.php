@@ -100,11 +100,16 @@
 	        	ff: $('#selc').val(),
 	        },
 		    error: function(xhr) {
-				swal("錯誤", "ajax請求錯誤", "warning");
+				swal("ajax請求錯誤", "請刷新網頁後重新動作", "warning");
 		    },
 		    success: function(response) {
 		    	waitingDialog.hide();
-		    	swal("資料創建成功", "謝謝您耐心的等候", "success");
+		    	if(response['status']=='success'){
+		    		swal("資料創建成功", "謝謝您耐心的等候", "success");
+		    	}
+		    	else{
+		    		swal("資料創建失敗", "請重新創建", "error");
+		    	}
 		    	$('#create_data').prop('disabled', false);
 		    }
 		});
@@ -128,7 +133,7 @@
 			},
 	      	success:function(response){
 	      		if(response['status'] == 'success'){
-	      			$('#selc').append('<option value="'+response['filename']+'">excel/'+response['filename']+'</option>');
+	      			$('#selc').append('<option value="excel/'+response['filename']+'">excel/'+response['filename']+'</option>');
 	      			swal("檔案新增成功", "請至下方選擇所需檔案", "success");
 	      		}
 	      		else{
@@ -190,10 +195,6 @@
 	});  
 
 
-
-
-
-
 	var waitingDialog = waitingDialog || (function ($) {
 	    'use strict';
 
@@ -209,13 +210,6 @@
 			'</div></div></div>');
 
 		return {
-			/**
-			 * Opens our dialog
-			 * @param message Custom message
-			 * @param options Custom options:
-			 * 				  options.dialogSize - bootstrap postfix for dialog size, e.g. "sm", "m";
-			 * 				  options.progressType - bootstrap postfix for progress bar type, e.g. "success", "warning".
-			 */
 			show: function (message, options) {
 				// Assigning defaults
 				if (typeof options === 'undefined') {

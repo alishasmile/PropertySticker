@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ApiController extends Controller
 {
-    //jst funcs
+    //just funcs
 
     public function convert_property_id($property_id_input){
 
@@ -185,7 +185,7 @@ class ApiController extends Controller
 
 ///////////////////////////////////////////////////////////////
 
-    public function Stick_check(Request $request)//API3
+    public function Stick_check(Request $request)//API3 for after checking sticker
     {
         $result = array();
 
