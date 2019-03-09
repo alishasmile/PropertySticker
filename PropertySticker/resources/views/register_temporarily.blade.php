@@ -48,7 +48,7 @@
 						<div class="group">
 							<label for="selc" class="label">選擇檔案：</label>
 						</div>
-						<select class="form-control" id="selc" >
+						<select class="form-control" id="selc" style="height:  calc(2.25rem + 14px);">
 						</select>
 					</div>
 					<div class="group">
