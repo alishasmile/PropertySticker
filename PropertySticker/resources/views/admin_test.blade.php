@@ -395,7 +395,7 @@
 		$('#note_list').html("");
 		$('#pro_id_and_name_note').append('財產編號 : '+this.item[2]+'<br>財產名稱 : '+this.item[3]);
 		$.ajax({
-			url: '{{URL::asset('/get_note_web')}}',
+			url: '/get_note_web',
 			type: 'POST',
 			headers: {
 			  'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -426,7 +426,7 @@
 			  else{
 			  	swal("請重新登入", "登入時效已過", "error").then(
 	                function (result) {
-	                	document.location.href="{{URL::asset('/logout')}}";
+	                	document.location.href="/logout";
 	            });
 			  }
 			}
@@ -439,7 +439,7 @@
 
 	function sendNoteInfo(id_from_PopNoteModal){
 	  $.ajax({
-	    url: '{{URL::asset('/add_note_web')}}',
+	    url: '/add_note_web',
 	    type: 'POST',
 	    headers: {
           'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -465,7 +465,7 @@
 	      	if(response['error type'] == 1){
 	      		swal("請重新登入", "登入時效已過", "error").then(
 	                function (result) {
-	                	document.location.href="{{URL::asset('/logout')}}";
+	                	document.location.href="/logout";
 	            });
 	      	}
 	      	else{
@@ -479,7 +479,7 @@
 
 	function sendStickInfo(id_from_PopCheckModal){
 	  $.ajax({
-	    url: '{{URL::asset('/stick_web')}}',
+	    url: '/stick_web',
 	    type: 'POST',
 	    headers: {
           'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -500,7 +500,7 @@
 	      else{
 		    swal("請重新登入", "登入時效已過", "error").then(
                 function (result) {
-                	document.location.href="{{URL::asset('/logout')}}";
+                	document.location.href="/logout";
             });
 	      }
 	    }

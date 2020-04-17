@@ -15,7 +15,7 @@
 
 				<input id="tab-1" type="radio" name="tab" class="sign-in" checked>
 				<label for="tab-1" class="tab">
-					<img src="{{URL::asset('/img/mcl_propertySticker.png')}}" class="img-circle" style="height: 20px; width: 20px;">
+					<img src="/img/mcl_propertySticker.png" class="img-circle" style="height: 20px; width: 20px;">
 					登入
 				</label>
 				<input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab">不要點我</label>
@@ -75,7 +75,7 @@
 
 		function sendLoginInformation(){
 		  $.ajax({
-		    url: '{{URL::asset('/api/token_check')}}',
+		    url: '/api/token_check',
 		    type: 'POST',
 		    headers: {
 	          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -88,7 +88,7 @@
 		    },
 		    success: function(response) {
 		      if(response['status'] == 'success'){
-		      	document.location.href="{{URL::asset('/')}}";
+		      	document.location.href="/";
 		      }
 		      else{
 		      	$('#user_wrong').css('display', '');

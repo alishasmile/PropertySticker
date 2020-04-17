@@ -86,13 +86,13 @@
             <li class="header-title">Layouts</li>
             <li class="active">
                 <a class="img-holder" href="compact-table.html">
-                    <img src="{{URL::asset('img/compact.jpg')}}">
+                    <img src="/img/compact.jpg">
                     <h5>Compact Table</h5>
                 </a>
             </li>
             <li>
                 <a class="img-holder" href="full-screen-table.html">
-                    <img src="{{URL::asset('img/full.jpg')}}">
+                    <img src="/img/full.jpg">
                     <h5>Full Screen Table</h5>
                 </a>
             </li>
@@ -102,9 +102,9 @@
 
 </body>
 
-    <script type="text/javascript" src="{{URL::asset('js/jquery-1.11.2.min.js')}}"></script>
-    <script type="text/javascript" src="{{URL::asset('js/bootstrap.js')}}"></script>
-    <script type="text/javascript" src="{{URL::asset('js/bootstrap-table.js')}}"></script>
+    <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table.js"></script>
     <script type="text/javascript">
 
         function myReady(){
@@ -115,7 +115,7 @@
         function sendPage($page){
 
             $.ajax({
-                url: '{{URL::asset('/getpage')}}',
+                url: '/getpage',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -189,7 +189,7 @@
 
 
             $alertBtn.click(function () {//logout
-                document.location.href="{{URL::asset('/logout')}}";
+                document.location.href="/logout";
             });
 
             myReady();

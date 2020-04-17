@@ -66,7 +66,7 @@
 
 	send = function (){
 	  $.ajax({
-	    url: '{{URL::asset('/createMember')}}',
+	    url: '/createMember',
 	    type: 'POST',
 	    headers: {
           'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -91,7 +91,7 @@
 		$('#create_data').prop('disabled', true);
 		waitingDialog.show();//請耐心稍後再前往頁面瀏覽
 		$.ajax({
-		    url: '{{URL::asset('/createData')}}',
+		    url: '/createData',
 		    type: 'POST',
 		    headers: {
 				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -118,7 +118,7 @@
 
 	$("#upload").click(function(){
 		$.ajax({
-	      	url:'{{URL::asset('/upload')}}',
+	      	url:'/upload',
 	      	headers: {
         	  	'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
 	      	},
@@ -167,7 +167,7 @@
 	$(document).ready(function(){
 		$('.pass_show').append('<span class="ptxt">顯示</span>');  
 		$.ajax({
-	      	url:'{{URL::asset('/selc_files')}}',
+	      	url:'/selc_files',
 	      	headers: {
 				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
 	      	},
