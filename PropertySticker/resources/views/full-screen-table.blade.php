@@ -9,17 +9,17 @@
 
 
 
-    <link rel="Shortcut Icon" type="image/x-icon" href={{URL::asset('/img/math_icon.png')}}>
+    <link rel="Shortcut Icon" type="image/x-icon" href=/img/math_icon.png>
 
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     
-    <link href="{{URL::asset('css/bootstrap.css')}}" rel="stylesheet" />
+    <link href="/css/bootstrap.css" rel="stylesheet" />
     
-    <link href="{{URL::asset('css/fresh-bootstrap-table.css')}}" rel="stylesheet" />
+    <link href="/css/fresh-bootstrap-table.css" rel="stylesheet" />
      
     <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
         
 </head>
 <body>
@@ -882,13 +882,13 @@
             <li class="header-title">Layouts</li>
             <li class="active">
                 <a class="img-holder" href="compact-table.html">
-                    <img src="{{URL::asset('img/compact.jpg')}}">
+                    <img src="/img/compact.jpg">
                     <h5>Compact Table</h5>
                 </a>
             </li>
             <li>
                 <a class="img-holder" href="full-screen-table.html">
-                    <img src="{{URL::asset('img/full.jpg')}}">
+                    <img src="/img/full.jpg">
                     <h5>Full Screen Table</h5>
                 </a>
             </li>
@@ -897,9 +897,9 @@
 </div>
 
 </body>
-    <script type="text/javascript" src="{{URL::asset('js/jquery-1.11.2.min.js')}}"></script>
-    <script type="text/javascript" src="{{URL::asset('js/bootstrap.js')}}"></script>
-    <script type="text/javascript" src="{{URL::asset('js/bootstrap-table.js')}}"></script>
+    <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table.js"></script>
     <script type="text/javascript">
         var $table = $('#fresh-table'),
             $alertBtn = $('#alertBtn'),
